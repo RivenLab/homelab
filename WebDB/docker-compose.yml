@@ -1,0 +1,37 @@
+#version: "3.7"
+
+networks:
+  front:
+    external: true
+
+services:
+  webdb:
+    image: webdb/app
+    restart: always
+    container_name: webdb
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - "$HOME/.ssh:/root/.ssh:ro"
+      - "$HOME/.webdb:/usr/src/app/static/version"
+    ports:
+      - "127.0.0.1:22071:22071"
+
+  maria:
+    image: mariadb
+    container_name: webdb_maria
+    ports:
+      - 3307:3306
+    environment:
+    MARIADB_ROOT_PASSWORD: ${maria_root_password}
+    networks:
+      - front
+
+  postgre:
+    image: postgres
+    container_name: webdb_postgress
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: ${postgress_root_password}
