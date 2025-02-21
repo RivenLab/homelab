@@ -3,6 +3,9 @@
 networks:
   front:
     external: true
+  back:
+    external: true
+
 
 services:
   webdb:
