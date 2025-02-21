@@ -16,6 +16,9 @@ services:
       - "$HOME/.webdb:/usr/src/app/static/version"
     ports:
       - "127.0.0.1:22071:22071"
+    networks:
+      - front
+      - back
 
   maria:
     image: mariadb
@@ -25,7 +28,7 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ${maria_root_password}
     networks:
-      - front
+      - back
 
   postgre:
     image: postgres
@@ -35,3 +38,5 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: ${postgress_root_password}
+    networks:
+      - back
