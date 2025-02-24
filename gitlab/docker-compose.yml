@@ -1,0 +1,34 @@
+#version: '3.7'
+
+services:
+  web:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: 'git.dragon.local'
+    container_name: gitlab
+    ports:
+      - '8785:80'
+      - '8348:443'
+      - '2424:2424'
+    volumes:
+      - '$GITLAB_HOME/gitlab.rb:/etc/gitlab/gitlab.rb'
+      - '$GITLAB_HOME/config:/etc/gitlab'
+      - '$GITLAB_HOME/logs:/var/log/gitlab'
+      - '$GITLAB_HOME/data:/var/opt/gitlab'
+    networks:
+      - front
+  gitlab-runner:
+    image: gitlab/gitlab-runner:alpine
+    container_name: gitlab-runner
+    restart: always
+    depends_on:
+      - web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - '$GITLAB_HOME/gitlab-runner:/etc/gitlab-runner'
+    networks:
+      - front
+
+networks:
+  front:
+    external: true
