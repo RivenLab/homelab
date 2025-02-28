@@ -1,0 +1,47 @@
+networks:
+  front:
+    name: front
+    external: true
+  back:
+    name: front
+    external: true
+
+services:
+  bookstack:
+    image: lscr.io/linuxserver/bookstack
+    container_name: bookstack
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - APP_URL=$APP_URL
+      - DB_HOST=bookstack_db
+      - DB_PORT=3306
+      - DB_USER=bookstack
+      - DB_PASS=$MYSQL_PASSWORD
+      - DB_DATABASE=bookstackapp
+    volumes:
+      - $PATH/app_data:/config
+    ports:
+      - 6875:80
+    networks:
+      - front
+      - back
+    restart: always
+    depends_on:
+      - bookstack_db
+  bookstack_db:
+    image: lscr.io/linuxserver/mariadb
+    container_name: bookstack_db
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=XuMaGxVPH8g5pf3td7YWPg9R
+      - TZ=Africa/Algiers
+      - MYSQL_DATABASE=bookstackapp
+      - MYSQL_USER=bookstack
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+    volumes:
+      - $PATH/mysql_data:/config
+    networks:
+      - back
+    restart: always

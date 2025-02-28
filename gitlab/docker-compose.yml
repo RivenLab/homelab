@@ -11,7 +11,6 @@ services:
       - '8348:443'
       - '2424:2424'
     volumes:
-      - '$GITLAB_HOME/gitlab.rb:/etc/gitlab/gitlab.rb'
       - '$GITLAB_HOME/config:/etc/gitlab'
       - '$GITLAB_HOME/logs:/var/log/gitlab'
       - '$GITLAB_HOME/data:/var/opt/gitlab'
