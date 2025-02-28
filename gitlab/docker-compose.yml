@@ -23,6 +23,9 @@ services:
     restart: always
     depends_on:
       - web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - '$GITLAB_HOME/gitlab-runner:/etc/gitlab-runner'
     networks:
       - front
 
