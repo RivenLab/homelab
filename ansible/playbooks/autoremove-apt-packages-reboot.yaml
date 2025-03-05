@@ -1,0 +1,14 @@
+---
+- hosts: all
+
+  become: yes
+  tasks:
+    - name: autoremove apt packages
+      become: true
+      apt:
+        autoremove: yes
+
+    - name: reboot the server
+      become: true
+      reboot:
+        reboot_timeout: 300
