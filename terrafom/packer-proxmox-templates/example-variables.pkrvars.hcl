@@ -1,0 +1,5 @@
+proxmox_host         = "10.10.0.10:8006"
+proxmox_node         = "pve-1"
+proxmox_api_user     = "root@pam!root"
+proxmox_api_password = "API-KEY"
+iso_file             = "local:iso/debian-12.4.0-amd64-netinst.iso"
