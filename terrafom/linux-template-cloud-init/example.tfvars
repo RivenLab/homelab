@@ -1,0 +1,66 @@
+# Proxmox Auth
+# User can choose between a PAM login or an API token-based provider.
+# 
+# Options:
+# 1. Use the API with a token: terraform@pve!provider=xxxxxxxx-
+# 2. Use PAM login: user@pam or username@realm
+#
+# If the API login is selected, execute the following command: cp provider.tf.api provider.tf
+
+proxmox_api_url    = "https://IP-PROMOX:8006/"
+proxmox_username   = "root@pam"
+proxmox_password   = ""
+proxmox_api_token  = ""
+ssh_username       = ""
+
+# VM Config
+vm_name            = ""
+vm_description     = "Debian 12 Cloned Template" 
+vm_tags            = [""]
+node_name          = "node1"
+datastore_id       = "local"
+agent_enabled      = true
+
+# Clone Configuration
+clone_full         = true
+clone_node_name    = "node-1"
+clone_vm_id        = 600
+clone_datastore_id = "local"
+
+# CPU Configuration
+cpu_cores          = 2
+cpu_sockets        = 1
+cpu_type           = "x86-64-v2-AES"
+
+# Memory Configuration
+memory_dedicated   = 2048
+memory_floating    = 2048
+
+# Disk Configuration
+disk_size          = 20
+disk_interface     = "virtio0"
+disk_iothread      = true
+
+# Network Device Configuration
+network_bridge     = "vmbr0"
+network_model      = "virtio"
+network_firewall   = false
+network_vlan_id    = 20
+
+# Operating System Configuration
+os_type            = "l26"
+
+# Networking Configuration
+ip_address         = "10.20.20.150/24"
+gateway            = "10.20.20.1"
+dns_servers        = ["10.20.20.250", "1.1.1.1"]
+dns_domain         = "dragon.local"
+
+# User Account Configuration
+username           = "dragon"
+password           = "r"
+
+# SSH Keys
+ssh_keys           = [
+  "ssh-ed25519 **** ***@dragon.local"
+]
