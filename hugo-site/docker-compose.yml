@@ -7,8 +7,6 @@ services:
       - "8015:80"
     networks:
       - front
-    volumes:
-      - /docker/hugo-site/htdocs:/src/htdocs
 
 networks:
   front:
