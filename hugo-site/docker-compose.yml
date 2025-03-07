@@ -1,0 +1,15 @@
+services:
+  hugo-site:
+    image: hugo-site:latest
+    container_name: hugo-website
+    restart : always
+    ports:
+      - "8015:80"
+    networks:
+      - front
+    volumes:
+      - /docker/hugo-site/htdocs:/src/htdocs
+
+networks:
+  front:
+    external: true
