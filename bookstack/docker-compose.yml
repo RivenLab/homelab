@@ -2,6 +2,7 @@ services:
   bookstack:
     image: lscr.io/linuxserver/bookstack
     container_name: bookstack
+    restart: always
     environment:
       - PUID=1000
       - PGID=1000
@@ -12,19 +13,26 @@ services:
       - DB_USER={{ mysql_user }}
       - DB_PASS={{ mysql_password }}
     volumes:
-      - {{ app_path }}/app_data:/config
+      - "{{ app_path }}/app_data:/config"
     ports:
       - 6875:80
     networks:
       - front
       - back
-    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.bookstack.entrypoints=web
+      - traefik.http.routers.bookstack.rule=Host(`{{ app_url }}`)
+      - traefik.http.routers.bookstack.entrypoints=websecure
+      - traefik.http.routers.bookstack.rule=Host(`{{ app_url }}`)
+      - traefik.http.routers.bookstack.tls=true
     depends_on:
       - bookstack_db
 
   bookstack_db:
     image: lscr.io/linuxserver/mariadb
     container_name: bookstack_db
+    restart: always
     environment:
       - PUID=1000
       - PGID=1000
@@ -34,10 +42,9 @@ services:
       - MYSQL_USER={{ mysql_user }}
       - MYSQL_PASSWORD={{ mysql_password }}
     volumes:
-      - {{ app_path }}/mysql_data:/config
+      - "{{ app_path }}/mysql_data:/config"
     networks:
       - back
-    restart: always
 
 networks:
   front:
