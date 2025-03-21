@@ -1,0 +1,16 @@
+services:
+  web:
+    image: nginx:alpine
+    container_name: hugo-website
+    restart : always
+    ports:
+      - "8002:80"
+    volumes:
+      - /docker/hugo-site/htdocs/public/:/usr/share/nginx/html
+      - /docker/hugo-site/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - front
+
+networks:
+  front:
+    external: true
