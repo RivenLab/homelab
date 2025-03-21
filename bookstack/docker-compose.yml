@@ -21,9 +21,9 @@ services:
       - back
     labels:
       - traefik.enable=true
-      - traefik.http.routers.bookstack.entrypoints=web
+      - traefik.http.routers.bookstack-http.entrypoints=web
       - traefik.http.routers.bookstack.rule=Host(`{{ app_url }}`)
-      - traefik.http.routers.bookstack.entrypoints=websecure
+      - traefik.http.routers.bookstack-https.entrypoints=websecure
       - traefik.http.routers.bookstack.rule=Host(`{{ app_url }}`)
       - traefik.http.routers.bookstack.tls=true
     depends_on:
@@ -51,5 +51,5 @@ networks:
     name: front
     external: true
   back:
-    name: front
+    name: back
     external: true
