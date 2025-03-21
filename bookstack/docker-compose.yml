@@ -23,10 +23,10 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.bookstack-http.entrypoints=web
-      - traefik.http.routers.bookstack.rule=Host(`$app_url`)
+      - traefik.http.routers.bookstack-http.rule=Host(`$app_url`)
       - traefik.http.routers.bookstack-https.entrypoints=websecure
-      - traefik.http.routers.bookstack.rule=Host(`$app_url`)
-      - traefik.http.routers.bookstack.tls=true
+      - traefik.http.routers.bookstack-https.rule=Host(`$app_url`)
+      - traefik.http.routers.bookstack-https.tls=true
     depends_on:
       - bookstack_db
 
