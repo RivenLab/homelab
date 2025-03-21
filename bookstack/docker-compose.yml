@@ -6,12 +6,12 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - APP_URL={{ app_url }}
+      - APP_URL=${app_url}
       - DB_HOST=bookstack_db
       - DB_PORT=3306
-      - DB_DATABASE={{ mysql_database }}
-      - DB_USER={{ mysql_user }}
-      - DB_PASS={{ mysql_password }}
+      - DB_DATABASE=${mysql_database}
+      - DB_USER=${mysql_user}
+      - DB_PASS=${mysql_password}
     volumes:
       - "${APP_PATH}/app_data:/config"
     ports:
@@ -22,9 +22,9 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.bookstack-http.entrypoints=web
-      - traefik.http.routers.bookstack.rule=Host(`{{ app_url }}`)
+      - traefik.http.routers.bookstack.rule=Host(`${app_url}`)
       - traefik.http.routers.bookstack-https.entrypoints=websecure
-      - traefik.http.routers.bookstack.rule=Host(`{{ app_url }}`)
+      - traefik.http.routers.bookstack.rule=Host(`${app_url}`)
       - traefik.http.routers.bookstack.tls=true
     depends_on:
       - bookstack_db
@@ -36,11 +36,11 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - MYSQL_ROOT_PASSWORD={{ mysql_root_password }}
-      - TZ={{ timezone }}
-      - MYSQL_DATABASE={{ mysql_database }}
-      - MYSQL_USER={{ mysql_user }}
-      - MYSQL_PASSWORD={{ mysql_password }}
+      - MYSQL_ROOT_PASSWORD=${mysql_root_password}
+      - TZ=${timezone}
+      - MYSQL_DATABASE=${mysql_database}
+      - MYSQL_USER=${mysql_user}
+      - MYSQL_PASSWORD=${mysql_password}
     volumes:
       - "${APP_PATH}/mysql_data:/config"
     networks:
