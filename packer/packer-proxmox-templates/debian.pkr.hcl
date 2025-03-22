@@ -4,15 +4,24 @@ source "proxmox-iso" "debian" {
   username                 = var.proxmox_api_user
   token                    = var.proxmox_api_password
 
-  template_description = "Built from ${basename(var.boot_iso)} on ${formatdate("YYYY-MM-DD hh:mm:ss ZZZ", timestamp())}"
+  template_description = "Built from ${basename(var.iso_file)} on ${formatdate("YYYY-MM-DD hh:mm:ss ZZZ", timestamp())}"
   node                 = var.proxmox_node
   ssh_timeout          = "25m"
+
+  boot_iso {
+    type         = "scsi"
+    iso_file     = var.iso_file
+    unmount      = true
+    iso_checksum = var.iso_checksum
+  }
+
   network_adapters {
     bridge   = "vmbr0"
     firewall = false
     model    = "virtio"
     vlan_tag = var.network_vlan
   }
+
   disks {
     disk_size    = var.disk_size
     format       = var.disk_format
@@ -20,17 +29,11 @@ source "proxmox-iso" "debian" {
     storage_pool = var.disk_storage_pool
     type         = "scsi"
   }
-  scsi_controller = "virtio-scsi-single"
 
-  boot_iso {
-    type = "scsi"
-    iso_file = var.iso_file
-    unmount = true
-    iso_checksum = var.iso_checksum
-  }
+  scsi_controller = "virtio-scsi-single"
   http_directory = "./"
   boot_command   = ["<esc><wait>auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"]
-  boot_wait    = "10s"
+  boot_wait      = "10s"
 
   cloud_init              = true
   cloud_init_storage_pool = var.cloudinit_storage_pool
