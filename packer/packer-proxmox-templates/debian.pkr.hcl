@@ -2,8 +2,8 @@ source "proxmox-iso" "debian" {
   proxmox_url              = "https://${var.proxmox_host}/api2/json"
   insecure_skip_tls_verify = true
   username                 = var.proxmox_api_user
-  token                    = var.proxmox_api_password
-  #password                 = var.proxmox_password
+  #token                    = var.proxmox_api_password
+  password                 = var.proxmox_password
 
   template_description = "Built from ${basename(var.iso_file)} on ${formatdate("YYYY-MM-DD hh:mm:ss ZZZ", timestamp())}"
   node                 = var.proxmox_node
