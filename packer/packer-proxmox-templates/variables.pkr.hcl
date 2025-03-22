@@ -10,6 +10,10 @@ variable "vm_name" {
   type = string
 }
 
+variable "vm_id" {
+  type = string
+}
+
 variable "cloudinit_storage_pool" {
   type    = string
 }
@@ -48,6 +52,13 @@ variable "machine_type" {
 
 variable "proxmox_api_password" {
   type      = string
+  default   = ""
+  sensitive = true
+}
+
+variable "proxmox_password" {
+  type      = string
+  default   = ""
   sensitive = true
 }
 

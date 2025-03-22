@@ -3,6 +3,7 @@ source "proxmox-iso" "debian" {
   insecure_skip_tls_verify = true
   username                 = var.proxmox_api_user
   token                    = var.proxmox_api_password
+  #password                 = var.proxmox_password
 
   template_description = "Built from ${basename(var.iso_file)} on ${formatdate("YYYY-MM-DD hh:mm:ss ZZZ", timestamp())}"
   node                 = var.proxmox_node
@@ -39,6 +40,7 @@ source "proxmox-iso" "debian" {
   cloud_init_storage_pool = var.cloudinit_storage_pool
 
   vm_name  = var.vm_name
+  vm_id    = var.vm_id
   cpu_type = var.cpu_type
   os       = "l26"
   memory   = var.memory

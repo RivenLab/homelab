@@ -1,0 +1,102 @@
+2025/03/22 02:09:23 [INFO] Packer version: 1.11.2 [go1.21.12 linux amd64]
+2025/03/22 02:09:23 [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/03/22 02:09:23 [INFO] PACKER_CONFIG env var set; attempting to open config file: /home/dragon/.packerconfig
+2025/03/22 02:09:23 [WARN] Config file doesn't exist: /home/dragon/.packerconfig
+2025/03/22 02:09:23 [INFO] Setting cache directory: /home/dragon/.cache/packer
+2025/03/22 02:09:23 [TRACE] listing potential installations for "github.com/hashicorp/proxmox" that match "~> 1.2.2". plugingetter.ListInstallationsOptions{PluginDirectory:"/home/dragon/.config/packer/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"linux", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc00071e000)}}, ReleasesOnly:false}}
+2025/03/22 02:09:23 [TRACE] Found the following "github.com/hashicorp/proxmox" installations: [{/home/dragon/.config/packer/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 v1.2.2 x5.0}]
+2025/03/22 02:09:23 [INFO] found external [-packer-default-plugin-name- clone iso] builders from proxmox plugin
+2025/03/22 02:09:23 [TRACE] listing potential installations for <nil> that match "". plugingetter.ListInstallationsOptions{PluginDirectory:"/home/dragon/.config/packer/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"linux", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc00071fa80)}}, ReleasesOnly:false}}
+2025/03/22 02:09:23 [INFO] found external [-packer-default-plugin-name- clone iso] builders from proxmox plugin
+2025/03/22 02:09:23 [TRACE] validateValue: not active for iso_checksum, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for cpu_type, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for proxmox_node, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for vm_name, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for disk_size, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for disk_storage_pool, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for network_vlan, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for machine_type, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for cloudinit_storage_pool, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for cores, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for proxmox_password, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for proxmox_host, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for iso_file, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for vm_id, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for disk_format, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for memory, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for proxmox_api_password, so skipping
+2025/03/22 02:09:23 [TRACE] validateValue: not active for proxmox_api_user, so skipping
+2025/03/22 02:09:23 [INFO] Starting external plugin /home/dragon/.config/packer/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 start builder iso
+2025/03/22 02:09:23 Starting plugin: /home/dragon/.config/packer/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 []string{"/home/dragon/.config/packer/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64", "start", "builder", "iso"}
+2025/03/22 02:09:23 Waiting for RPC address for: /home/dragon/.config/packer/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 2025/03/22 02:09:23 Plugin address: unix /tmp/packer-plugin4041688413
+2025/03/22 02:09:23 Received unix RPC address for /home/dragon/.config/packer/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64: addr is /tmp/packer-plugin4041688413
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 2025/03/22 02:09:23 Waiting for connection...
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 2025/03/22 02:09:23 Serving a plugin connection...
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 2025/03/22 02:09:23 [TRACE] starting builder iso
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 2025/03/22 02:09:23 Disk 0 cache mode not set, using default 'none'
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 2025/03/22 02:09:23 Cloud-Init disk type not set, using default 'ide'
+2025/03/22 02:09:23 [INFO] Starting internal plugin packer-provisioner-file
+2025/03/22 02:09:23 Starting plugin: /usr/local/bin/packer []string{"/usr/local/bin/packer", "execute", "packer-provisioner-file"}
+2025/03/22 02:09:23 Waiting for RPC address for: /usr/local/bin/packer
+2025/03/22 02:09:23 packer-provisioner-file plugin: [INFO] Packer version: 1.11.2 [go1.21.12 linux amd64]
+2025/03/22 02:09:23 packer-provisioner-file plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/03/22 02:09:23 packer-provisioner-file plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /home/dragon/.packerconfig
+2025/03/22 02:09:23 packer-provisioner-file plugin: [WARN] Config file doesn't exist: /home/dragon/.packerconfig
+2025/03/22 02:09:23 packer-provisioner-file plugin: [INFO] Setting cache directory: /home/dragon/.cache/packer
+2025/03/22 02:09:23 packer-provisioner-file plugin: args: []string{"packer-provisioner-file"}
+2025/03/22 02:09:23 packer-provisioner-file plugin: Plugin address: unix /tmp/packer-plugin3420759545
+2025/03/22 02:09:23 Received unix RPC address for /usr/local/bin/packer: addr is /tmp/packer-plugin3420759545
+2025/03/22 02:09:23 packer-provisioner-file plugin: Waiting for connection...
+2025/03/22 02:09:23 packer-provisioner-file plugin: Serving a plugin connection...
+2025/03/22 02:09:23 ui: [1;32mproxmox-iso.debian: output will be in this color.[0m
+2025/03/22 02:09:23 ui: 
+2025/03/22 02:09:23 Build debug mode: false
+2025/03/22 02:09:23 Force build: false
+2025/03/22 02:09:23 On error: 
+2025/03/22 02:09:23 Waiting on builds to complete...
+2025/03/22 02:09:23 Starting build run: proxmox-iso.debian
+2025/03/22 02:09:23 Running builder: proxmox-iso
+2025/03/22 02:09:23 [INFO] (telemetry) Starting builder proxmox-iso.debian
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 2025/03/22 02:09:23 using token auth
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 2025/03/22 02:09:23 No CD files specified. CD disk will not be made.
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 2025/03/22 02:09:23 No URLs were provided to Step Download. Continuing...
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 2025/03/22 02:09:23 Mapping Disk to scsi0
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: panic: runtime error: index out of range [1] with length 1
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: goroutine 19 [running]:
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: github.com/hashicorp/packer-plugin-proxmox/builder/proxmox/common.generateProxmoxDisks({0xc0000cec80, 0x1, 0xc00019d8a0?}, {0xc000129100, 0x1, 0xc000558840?}, {0x0?, 0x0, 0x40?})
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 	github.com/hashicorp/packer-plugin-proxmox/builder/proxmox/common/step_start_vm.go:593 +0x213c
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: github.com/hashicorp/packer-plugin-proxmox/builder/proxmox/common.(*stepStartVM).Run(0xc000430a80, {0x11a3ab6?, 0xc000751810?}, {0x154b368, 0xc0003c6780})
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 	github.com/hashicorp/packer-plugin-proxmox/builder/proxmox/common/step_start_vm.go:110 +0x165
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: github.com/hashicorp/packer-plugin-sdk/multistep.(*BasicRunner).Run(0xc0003c68a0, {0x154b5d0, 0xc000751810}, {0x154b368, 0xc0003c6780})
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 	github.com/hashicorp/packer-plugin-sdk@v0.5.4/multistep/basic_runner.go:73 +0x2be
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: github.com/hashicorp/packer-plugin-proxmox/builder/proxmox/common.(*Builder).Run(0xc000839800, {0x154b5d0, 0xc000751810}, {0x1550ad8?, 0xc0003c6750}, {0x153f5c0?, 0xc0004b3cc0}, {0x154b368?, 0xc0003c6780?})
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 	github.com/hashicorp/packer-plugin-proxmox/builder/proxmox/common/builder.go:111 +0xeab
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: github.com/hashicorp/packer-plugin-proxmox/builder/proxmox/iso.(*Builder).Run(0xc00056fb00, {0x154b5d0, 0xc000751810}, {0x1550ad8, 0xc0003c6750}, {0x153f5c0, 0xc0004b3cc0})
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 	github.com/hashicorp/packer-plugin-proxmox/builder/proxmox/iso/builder.go:47 +0x357
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: github.com/hashicorp/packer-plugin-sdk/rpc.(*BuilderServer).Run(0xc0004cb2c0, 0x500640?, 0xc000500620)
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 	github.com/hashicorp/packer-plugin-sdk@v0.5.4/rpc/builder.go:120 +0x1c8
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: reflect.Value.call({0xc0005248a0?, 0xc00005a668?, 0x13?}, {0x119d3a6, 0x4}, {0xc0000a5ef8, 0x3, 0x3?})
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 	reflect/value.go:596 +0xce7
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: reflect.Value.Call({0xc0005248a0?, 0xc00005a668?, 0x0?}, {0xc0008596f8?, 0x0?, 0x0?})
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 	reflect/value.go:380 +0xb9
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: net/rpc.(*service).call(0xc0004cb300, 0x0?, 0x0?, 0xc0005018d0, 0xc000511180, 0x0?, {0xf9a1c0?, 0xc00050061c?, 0x0?}, {0xf6afc0, ...}, ...)
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 	net/rpc/server.go:382 +0x211
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: created by net/rpc.(*Server).ServeCodec in goroutine 1
+2025/03/22 02:09:23 packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64 plugin: 	net/rpc/server.go:479 +0x410
+2025/03/22 02:09:23 /home/dragon/.config/packer/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_linux_amd64: plugin process exited
+2025/03/22 02:09:23 [INFO] (telemetry) ending proxmox-iso.debian
+2025/03/22 02:09:23 ui error: [1;31mBuild 'proxmox-iso.debian' errored after 5 milliseconds 942 microseconds: unexpected EOF[0m
+2025/03/22 02:09:23 ui: 
+==> Wait completed after 6 milliseconds 29 microseconds
+2025/03/22 02:09:23 machine readable: error-count []string{"1"}
+2025/03/22 02:09:23 ui error: 
+==> Some builds didn't complete successfully and had errors:
+2025/03/22 02:09:23 machine readable: proxmox-iso.debian,error []string{"unexpected EOF"}
+2025/03/22 02:09:23 ui error: --> proxmox-iso.debian: unexpected EOF
+2025/03/22 02:09:23 ui: 
+==> Builds finished but no artifacts were created.
+2025/03/22 02:09:23 [INFO] (telemetry) Finalizing.
+2025/03/22 02:09:24 waiting for all plugin processes to complete...
+2025/03/22 02:09:24 /usr/local/bin/packer: plugin process exited
