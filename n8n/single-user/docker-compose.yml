@@ -14,7 +14,7 @@ services:
       - N8N_LOG_LEVEL=info
       - N8N_COMMUNITY_PACKAGES_ENABLED=true
       - WEBHOOK_URL=https://${webhook_domain}/
-      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+      - GENERIC_TIMEZONE=${timezone}
     labels:
       - traefik.enable=true
       - traefik.http.routers.n8n-http.entrypoints=web
