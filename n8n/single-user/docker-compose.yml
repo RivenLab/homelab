@@ -13,6 +13,7 @@ services:
       - N8N_RUNNERS_ENABLED=true
       - N8N_LOG_LEVEL=info
       - N8N_COMMUNITY_PACKAGES_ENABLED=true
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       - WEBHOOK_URL=https://${webhook_domain}/
       - GENERIC_TIMEZONE=${timezone}
     labels:
