@@ -18,9 +18,9 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.n8n-http.entrypoints=web
-      - traefik.http.routers.n8n-http.rule=Host(`${n8n_domain}`)
+      - traefik.http.routers.n8n-http.rule=Host(`${webhook_domain}`)
       - traefik.http.routers.n8n-https.entrypoints=websecure
-      - traefik.http.routers.n8n-https.rule=Host(`${n8n_domain}`)
+      - traefik.http.routers.n8n-https.rule=Host(`${webhook_domain}`)
       - traefik.http.routers.n8n-https.tls=true
     volumes:
       - ${app_path}:/home/node/.n8n
