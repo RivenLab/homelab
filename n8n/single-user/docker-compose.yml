@@ -1,9 +1,3 @@
-#version: "3.7"
-
-networks:
-  front:
-    external: true
-
 services:
   n8n:
     image: docker.n8n.io/n8nio/n8n
@@ -32,3 +26,6 @@ services:
       - ${app_path}:/home/node/.n8n
     networks:
       - front
+networks:
+  front:
+    external: true
