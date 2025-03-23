@@ -12,14 +12,23 @@ services:
     ports:
       - "127.0.0.1:5678:5678"
     environment:
-      - N8N_HOST=${SUBDOMAIN}.${DOMAIN_NAME}
+      - N8N_HOST=${n8n_domain}
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
       - NODE_ENV=production
       - N8N_RUNNERS_ENABLED=true
-      - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}/
+      - N8N_LOG_LEVEL=info
+      - N8N_COMMUNITY_PACKAGES_ENABLED=true
+      - WEBHOOK_URL=https://${webhook_domain}/
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.n8n-http.entrypoints=web
+      - traefik.http.routers.n8n-http.rule=Host(`${n8n_domain}`)
+      - traefik.http.routers.n8n-https.entrypoints=websecure
+      - traefik.http.routers.n8n-https.rule=Host(`${n8n_domain}`)
+      - traefik.http.routers.n8n-https.tls=true
     volumes:
-      - /docker/n8n:/home/node/.n8n
+      - ${app_path}:/home/node/.n8n
     networks:
       - front
