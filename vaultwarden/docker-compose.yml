@@ -14,6 +14,8 @@ services:
       - traefik.http.routers.vaultwarden-https.tls=true
     networks:
       - front
+    ports:
+      - 8062:80
     environment:
       - TZ=${timezone}
       - SMTP_HOST=${mail_host}
