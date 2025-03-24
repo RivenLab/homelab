@@ -19,6 +19,8 @@ services:
       VIKUNJA_MAILER_USERNAME: ${mail_username}
       VIKUNJA_MAILER_PASSWORD: ${mail_password}
       VIKUNJA_ALLOW_ICON_CHANGES: true
+    ports:
+      - 3456:3456
     labels:
       - traefik.enable=true
       - traefik.http.routers.vikunja-http.entrypoints=web
