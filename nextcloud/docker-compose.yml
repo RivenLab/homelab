@@ -36,8 +36,6 @@ services:
     networks:
       - back
       - front
-    ports:
-      - 8999:80
     labels:
       - traefik.enable=true
       - traefik.http.routers.nextcloud-http.entrypoints=web
