@@ -21,10 +21,11 @@ services:
       VIKUNJA_ALLOW_ICON_CHANGES: true
     labels:
       - traefik.enable=true
-      - traefik.http.routers.vikunja.entrypoints=websecure
-      - traefik.http.routers.vikunja.tls=true
-      - traefik.http.routers.vikunja.rule=Host(`${domain}`)
-      - traefik.http.routers.vikunja.service=vikunja
+      - traefik.http.routers.vikunja-http.entrypoints=web
+      - traefik.http.routers.vikunja-http.rule=Host(`${domain}`)
+      - traefik.http.routers.vikunja-https.entrypoints=websecure
+      - traefik.http.routers.vikunja-https.rule=Host(`${domain}`)
+      - traefik.http.routers.vikunja-https.tls=true
     networks:
       - front
       - back
