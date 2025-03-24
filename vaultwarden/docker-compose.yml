@@ -7,10 +7,11 @@ services:
       - ${app_path}:/data/
     labels:
       - traefik.enable=true
-      - traefik.http.routers.vaultwarden.entrypoints=websecure
-      - traefik.http.routers.vaultwarden.tls=true
-      - traefik.http.routers.vaultwarden.rule=Host(`${domain}`)
-      - traefik.http.routers.vaultwarden.service=vaultwarden
+      - traefik.http.routers.vaultwarden-http.entrypoints=web
+      - traefik.http.routers.vaultwarden-http.rule=Host(`${domain}`)
+      - traefik.http.routers.vaultwarden-https.entrypoints=websecure
+      - traefik.http.routers.vaultwarden-https.rule=Host(`${domain}`)
+      - traefik.http.routers.vaultwarden-https.tls=true
     networks:
       - front
     environment:

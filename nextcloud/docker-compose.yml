@@ -38,10 +38,11 @@ services:
       - front
     labels:
       - traefik.enable=true
-      - traefik.http.routers.nextcloud.entrypoints=websecure
-      - traefik.http.routers.nextcloud.tls=true
-      - traefik.http.routers.nextcloud.rule=Host(`${domain}`)
-      - traefik.http.routers.nextcloud.service=nextcloud
+      - traefik.http.routers.nextcloud-http.entrypoints=web
+      - traefik.http.routers.nextcloud-http.rule=Host(`${domain}`)
+      - traefik.http.routers.nextcloud-https.entrypoints=websecure
+      - traefik.http.routers.nextcloud-https.rule=Host(`${domain}`)
+      - traefik.http.routers.nextcloud-https.tls=true
     links:
       - nextcloud_db
     volumes:
