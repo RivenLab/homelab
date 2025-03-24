@@ -1,0 +1,67 @@
+services:
+  nextcloud_db:
+    image: docker.io/library/mariadb:10.6
+    container_name: nextcloud-db
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+    volumes:
+      - ${app_path}/mysql:/var/lib/mysql
+    networks:
+      - back
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${timezone}
+      - MYSQL_ROOT_PASSWORD=${mysql_root_password}
+      - MYSQL_PASSWORD=${mysql_password}
+      - MYSQL_DATABASE=${mysql_database}
+      - MYSQL_USER=${mysql_user}
+
+  nextcloud_redis:
+    image: docker.io/library/redis:alpine
+    container_name: nextcloud-redis
+    restart: always
+    volumes:
+      - ${app_path}/redis:/data
+    networks:
+      - back
+
+  nextcloud_app:
+    image: docker.io/library/nextcloud:stable
+    container_name: nextcloud
+    restart: always
+    depends_on:
+      - nextcloud_db
+      - nextcloud_redis
+    networks:
+      - back
+      - front
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.nextcloud.entrypoints=websecure
+      - traefik.http.routers.nextcloud.tls=true
+      - traefik.http.routers.nextcloud.rule=Host(`${domain}`)
+      - traefik.http.routers.nextcloud.service=nextcloud
+    links:
+      - nextcloud_db
+    volumes:
+      - ${app_path}/html:/var/www/html
+      - ${app_path}/custom_apps:/var/www/html/custom_apps
+      - ${app_path}/config:/var/www/html/config
+      - ${app_path}/data:/var/www/html/data
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${timezone}
+      - MYSQL_PASSWORD=${mysql_password}
+      - MYSQL_DATABASE=${mysql_database}
+      - MYSQL_USER=${mysql_user}
+      - MYSQL_HOST=nextcloud_db
+      - NEXTCLOUD_TRUSTED_DOMAINS=${trusted_domains}
+      - REDIS_HOST=nextcloud_redis
+
+networks:
+  back:
+    external: true
+  front:
+    external: true
