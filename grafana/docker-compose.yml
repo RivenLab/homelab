@@ -8,6 +8,7 @@ services:
      - GF_SERVER_ROOT_URL=https://${domain}
      - GF_PLUGINS_PREINSTALL=grafana-clock-panel
      - GF_DEFAULT_INSTANCE_NAME=grafana
+     - GF_LOG_LEVEL=error
     ports:
      - '3000:3000'
     labels:
