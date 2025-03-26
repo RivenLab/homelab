@@ -33,11 +33,7 @@ prompt_with_default "Enter number of CPU cores" "2" "cpu_cores"
 
 prompt_with_default "Enter memory in MB" "2048" "memory_value"
 
-# IP Address
 prompt_with_default "Enter IP address" "10.20.20.150" "ip_address"
-
-# Email configuration
-prompt_with_default "Enter recipient email address" "your@email.com" "email_address"
 
 cat > terraform.tfvars.json << EOF
 {
@@ -69,6 +65,10 @@ fi
 if [[ $confirm == "y" || $confirm == "Y" ]]; then
     echo -e "\n${GREEN}Running terraform apply with auto-approve...${NC}"
     terraform apply -auto-approve
+
+    # Cleanup terraform files
+    echo -e "\n${GREEN}Cleaning up terraform files...${NC}"
+    rm -f terraform.tfstate terraform.tfstate.backup terraform.tfvars.json
 else
     echo -e "\n${BLUE}Terraform apply cancelled.${NC}"
 fi
