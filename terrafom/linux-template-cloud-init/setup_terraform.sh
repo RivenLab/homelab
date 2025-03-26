@@ -23,7 +23,7 @@ prompt_with_default() {
     echo "Setting $var_name = $input"
 }
 
-prompt_with_default "Enter cloned VM ID" "601" "cloned_vm_id"
+prompt_with_default "Enter cloned VM ID" "601" "clone_vm_id"
 
 prompt_with_default "Enter VM name" "debian-vm" "vm_name"
 
@@ -38,7 +38,7 @@ prompt_with_default "Enter IP address (CIDR format, e.g., 10.20.20.150/24)" "10.
 
 cat > terraform.tfvars.json << EOF
 {
-  "cloned_vm_id": $cloned_vm_id,
+  "clone_vm_id": $clone_vm_id,
   "vm_name": "$vm_name",
   "vm_description": "$vm_description",
   "cpu_cores": $cpu_cores,
