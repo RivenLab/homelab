@@ -36,6 +36,9 @@ prompt_with_default "Enter memory in MB" "2048" "memory_value"
 # IP Address
 prompt_with_default "Enter IP address" "10.20.20.150" "ip_address"
 
+# Email configuration
+prompt_with_default "Enter recipient email address" "your@email.com" "email_address"
+
 cat > terraform.tfvars.json << EOF
 {
   "clone_vm_id": $clone_vm_id,

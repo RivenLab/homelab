@@ -13,11 +13,6 @@ output "vm_ip" {
   description = "The IP address assigned to the created VM."
 }
 
-output "vm_status" {
-  value       = proxmox_virtual_environment_vm.debian_vm.startup
-  description = "The current startup status of the VM."
-}
-
 output "vm_memory" {
   value       = proxmox_virtual_environment_vm.debian_vm.memory[0].dedicated
   description = "The amount of dedicated memory (MB) allocated to the VM."
@@ -41,9 +36,4 @@ output "vm_disk_size" {
 output "vm_network" {
   value       = proxmox_virtual_environment_vm.debian_vm.network_device[0].bridge
   description = "The network bridge the VM is connected to."
-}
-
-output "vm_tags" {
-  value       = proxmox_virtual_environment_vm.debian_vm.tags
-  description = "Tags assigned to the created VM for organization."
 }
