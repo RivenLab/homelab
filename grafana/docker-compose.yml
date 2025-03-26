@@ -1,0 +1,32 @@
+services:
+  grafana:
+    image: grafana/grafana-oss:main
+    container_name: grafana
+    restart: unless-stopped
+    user: "1000:1000"
+    environment:
+     - GF_SERVER_ROOT_URL=https://${domain}
+     - GF_PLUGINS_PREINSTALL=grafana-clock-panel
+     - GF_DEFAULT_INSTANCE_NAME=grafana
+     - GF_LOG_LEVEL=error
+    ports:
+     - '3000:3000'
+    labels:
+     - traefik.enable=true
+     - traefik.http.routers.grafana-http.entrypoints=web
+     - traefik.http.routers.grafana-http.rule=Host(`${domain}`)
+     - traefik.http.routers.grafana-https.entrypoints=websecure
+     - traefik.http.routers.grafana-https.rule=Host(`${domain}`)
+     - traefik.http.routers.grafana-https.tls=true
+    volumes:
+     - ${app_data}/data:/var/lib/grafana'
+     - ${app_data}/logs:/var/log/grafana
+     - ${app_data}/provisioning:/etc/grafana/provisioning
+     - ${app_data}/plugins:/var/lib/grafana/plugins
+     - ${app_data}/home:/usr/share/grafana
+     - ${app_data}/grafana.ini:/etc/grafana/grafana.ini
+    networks:
+     - front
+networks:
+  front:
+    external: true
