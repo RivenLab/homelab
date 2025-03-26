@@ -8,7 +8,6 @@ services:
      - GF_SERVER_ROOT_URL=https://${domain}
      - GF_PLUGINS_PREINSTALL=grafana-clock-panel
      - GF_DEFAULT_INSTANCE_NAME=grafana
-     - GF_LOG_LEVEL=error
     ports:
      - '3000:3000'
     labels:
@@ -19,12 +18,7 @@ services:
      - traefik.http.routers.grafana-https.rule=Host(`${domain}`)
      - traefik.http.routers.grafana-https.tls=true
     volumes:
-     - ${app_data}/data:/var/lib/grafana'
-     - ${app_data}/logs:/var/log/grafana
-     - ${app_data}/provisioning:/etc/grafana/provisioning
-     - ${app_data}/plugins:/var/lib/grafana/plugins
-     - ${app_data}/home:/usr/share/grafana
-     - ${app_data}/grafana.ini:/etc/grafana/grafana.ini
+     - ${app_data}/data:/var/lib/grafana
     networks:
      - front
 networks:
