@@ -34,7 +34,7 @@ prompt_with_default "Enter number of CPU cores" "2" "cpu_cores"
 prompt_with_default "Enter memory in MB" "2048" "memory_value"
 
 # IP Address
-prompt_with_default "Enter IP address (CIDR format, e.g., 10.20.20.150/24)" "10.20.20.150/24" "ip_address"
+prompt_with_default "Enter IP address" "10.20.20.150" "ip_address"
 
 cat > terraform.tfvars.json << EOF
 {
@@ -44,7 +44,7 @@ cat > terraform.tfvars.json << EOF
   "cpu_cores": $cpu_cores,
   "memory_dedicated": $memory_value,
   "memory_floating": $memory_value,
-  "ip_address": "$ip_address"
+  "ip_address": "$ip_address/24"
 }
 EOF
 
