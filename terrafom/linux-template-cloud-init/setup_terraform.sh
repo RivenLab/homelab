@@ -2,7 +2,7 @@
 
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
 echo -e "${GREEN}Terraform Setup Script${NC}"
 echo -e "${BLUE}This script will help you set up missing variables and run terraform apply${NC}\n"
@@ -15,15 +15,15 @@ prompt_with_default() {
     echo -e "${BLUE}$prompt${NC} (default: $default): "
     read input
 
-    # Use default if input is empty
     if [ -z "$input" ]; then
         input=$default
     fi
 
-    # Store the value in a variable
     eval "$var_name=\"$input\""
     echo "Setting $var_name = $input"
 }
+
+prompt_with_default "Enter cloned VM ID" "601" "cloned_vm_id"
 
 prompt_with_default "Enter VM name" "debian-vm" "vm_name"
 
@@ -31,7 +31,6 @@ prompt_with_default "Enter VM description" "Debian 12 VM created with Terraform"
 
 prompt_with_default "Enter number of CPU cores" "2" "cpu_cores"
 
-memory_value=""
 prompt_with_default "Enter memory in MB" "2048" "memory_value"
 
 # IP Address
@@ -39,6 +38,7 @@ prompt_with_default "Enter IP address (CIDR format, e.g., 10.20.20.150/24)" "10.
 
 cat > terraform.tfvars.json << EOF
 {
+  "cloned_vm_id": $cloned_vm_id,
   "vm_name": "$vm_name",
   "vm_description": "$vm_description",
   "cpu_cores": $cpu_cores,
