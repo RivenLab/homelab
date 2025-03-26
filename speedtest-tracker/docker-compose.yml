@@ -9,11 +9,10 @@ services:
     environment:
         - PUID=1000
         - PGID=1000
-        - APP_KEY=
+        - APP_KEY=${app_key}
         - DB_CONNECTION=sqlite
     volumes:
         - ${app_data}/data:/config
-        - ${app_data}/keys:/config/keys
     networks:
         - front
 
