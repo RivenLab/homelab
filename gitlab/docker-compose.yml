@@ -15,7 +15,7 @@ services:
       - '$GITLAB_HOME/logs:/var/log/gitlab'
       - '$GITLAB_HOME/data:/var/opt/gitlab'
     networks:
-      - proxy_lan
+      - proxy
   gitlab-runner:
     image: gitlab/gitlab-runner:alpine
     container_name: gitlab-runner
@@ -26,8 +26,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - '$GITLAB_HOME/gitlab-runner:/etc/gitlab-runner'
     networks:
-      - proxy_lan
+      - proxy
 
 networks:
-  proxy_lan:
+  proxy:
     external: true

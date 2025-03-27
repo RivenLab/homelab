@@ -21,7 +21,7 @@ services:
     volumes:
      - ${app_data}/data:/var/lib/grafana
     networks:
-     - proxy_lan
+     - proxy
 networks:
-  proxy_lan:
+  proxy:
     external: true

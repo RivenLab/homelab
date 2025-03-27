@@ -7,8 +7,7 @@ services:
       - "80:80"
       - "443:443"
     networks:
-      - proxy_wan
-      - proxy_lan
+      - proxy
       - internal
       - docker-proxynet
     environment:
@@ -44,9 +43,7 @@ services:
       - /run
 
 networks:
-  proxy_wan:
-    external: true
-  proxy_lan:
+  proxy:
     external: true
   internal:
     external: true

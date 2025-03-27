@@ -21,8 +21,8 @@ services:
       - 8484:80
     restart: unless-stopped
     networks:
-      - proxy_lan
+      - proxy
 
 networks:
-  proxy_lan:
+  proxy:
     external: true
