@@ -1,0 +1,27 @@
+---
+services:
+  portainer:
+    image: portainer/portainer-ee:latest
+    container_name: portainer
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 9000:9000
+    networks:
+      - proxy
+    environment:
+      - EDGE=1
+      - EDGE_LICENSE_FILE=/root/docker/portainer/portainer-licence
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
+      - traefik.http.routers.portainer.rule=Host(`${app_url}`)
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${app_data}/portainer-data:/data
+
+networks:
+  proxy:
+    external: true
