@@ -6,9 +6,11 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - 127.0.0.1:8080:8080
+      - 127.0.0.1:8080:8080 
     networks:
       - front
+      - proxy
+      - docker-proxynet
     environment:
       - TZ=${timezone}
     labels:
@@ -22,6 +24,8 @@ services:
       - ${app_data}/acme.json:/acme.json
       - ${app_data}/logs:/logs
       - ${app_data}/conf.d:/etc/traefik/conf.d
+    extra_hosts:
+      - host.docker.internal:172.17.0.1
     security_opt:
       - no-new-privileges:true
 
@@ -42,4 +46,8 @@ services:
 
 networks:
   front:
+    external: true
+  proxy:
+    external: true
+  docker-proxynet:
     external: true
