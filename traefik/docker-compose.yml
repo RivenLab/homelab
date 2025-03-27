@@ -46,7 +46,9 @@ services:
 networks:
   proxy_wan:
     external: true
-  proxy:
+  proxy_lan:
+    external: true
+  internal:
     external: true
   docker-proxynet:
     external: true
