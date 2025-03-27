@@ -17,7 +17,6 @@ services:
       - traefik.enable=true
       - traefik.http.routers.api.rule=Host(`${app_url}`)
       - traefik.http.routers.api.service=api@internal
-      - traefik.http.middlewares.basic-auth-global.basicauth.users=${basic_auth}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${app_data}/traefik.toml:/etc/traefik/traefik.toml
