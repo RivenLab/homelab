@@ -2,18 +2,43 @@ services:
   traefik:
     image: "traefik:latest"
     container_name: "traefik"
+    restart: always
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
+      - 127.0.0.1:8080:8080
     networks:
       - front
+    environment:
+      - TZ=${timezone}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.api.rule=Host(`${app_url}`)
+      - traefik.http.routers.api.service=api@internal
+      - traefik.http.middlewares.basic-auth-global.basicauth.users=${basic_auth}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${app_data}/traefik.toml:/etc/traefik/traefik.toml
       - ${app_data}/acme.json:/acme.json
+      - ${}app_data}/logs:/logs
       - ${app_data}/conf.d:/etc/traefik/conf.d
+    security_opt:
+      - no-new-privileges:true
+
+  socket-proxy:
+    image: lscr.io/linuxserver/socket-proxy:1.26.2
+    container_name: socket-proxy
+    environment:
+      - CONTAINERS=1
+      - EVENTS=1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - docker-proxynet
     restart: always
+    read_only: true
+    tmpfs:
+      - /run
 
 networks:
   front:
