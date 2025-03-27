@@ -10,7 +10,7 @@ services:
         - PUID=1000
         - PGID=1000
         - APP_KEY=${app_key}
-        - APP_URL=${domain}
+        - APP_URL=${app_url}
         - DB_CONNECTION=sqlite
         - SPEEDTEST_SCHEDULE=dail="0 */3 * * *"
         - DISPLAY_TIMEZONE=${timezone}
