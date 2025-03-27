@@ -13,7 +13,6 @@ services:
       OCIS_LOG_COLOR=false
       PROXY_TLS=false
       OCIS_INSECURE=true
-      # Basic Auth is required for WebDAV clients that don't support OIDC
       PROXY_ENABLE_BASIC_AUTH=false
       IDM_ADMIN_PASSWORD=${admin_password}
     networks:
