@@ -12,7 +12,7 @@ services:
         - APP_KEY=${app_key}
         - APP_URL=${app_url}
         - DB_CONNECTION=sqlite
-        - SPEEDTEST_SCHEDULE=dail="0 */3 * * *"
+        - SPEEDTEST_SCHEDULE="0 */3 * * *"
         - DISPLAY_TIMEZONE=${timezone}
     volumes:
         - ${app_data}/data:/config
