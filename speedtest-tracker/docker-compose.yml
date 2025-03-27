@@ -17,8 +17,8 @@ services:
     volumes:
         - ${app_data}/data:/config
     networks:
-        - front
+        - proxy_lan
 
 networks:
-    front:
+    proxy_wan:
         external: true

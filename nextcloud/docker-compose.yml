@@ -7,7 +7,7 @@ services:
     volumes:
       - ${app_data}/mysql:/var/lib/mysql
     networks:
-      - back
+      - internal
     environment:
       - PUID=1000
       - PGID=1000
@@ -24,7 +24,7 @@ services:
     volumes:
       - ${app_data}/redis:/data
     networks:
-      - back
+      - internal
 
   nextcloud_app:
     image: docker.io/library/nextcloud:stable
@@ -34,8 +34,8 @@ services:
       - nextcloud_db
       - nextcloud_redis
     networks:
-      - back
-      - front
+      - internal
+      - proxy_wan
     ports:
       - 8999:80
     labels:
@@ -64,7 +64,7 @@ services:
       - REDIS_HOST=nextcloud_redis
 
 networks:
-  back:
+  internal:
     external: true
-  front:
+  proxy_wan:
     external: true

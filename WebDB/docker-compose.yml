@@ -11,8 +11,8 @@ services:
     ports:
       - "127.0.0.1:22071:22071"
     networks:
-      - front
-      - back
+      - proxy_lan
+      - internal
 
   maria:
     image: mariadb
@@ -22,7 +22,7 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ${maria_root_password}
     networks:
-      - back
+      - internal
 
   postgre:
     image: postgres
@@ -33,10 +33,10 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: ${postgress_root_password}
     networks:
-      - back
+      - internal
 
 networks:
-  front:
+  proxy_lan:
     external: true
-  back:
+  internal:
     external: true

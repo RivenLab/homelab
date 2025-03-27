@@ -13,7 +13,7 @@ services:
       - traefik.http.routers.vaultwarden-https.rule=Host(`${app_url}`)
       - traefik.http.routers.vaultwarden-https.tls=true
     networks:
-      - front
+      - proxy_wan
     environment:
       - TZ=${timezone}
       - SMTP_HOST=${mail_host}
@@ -40,5 +40,5 @@ services:
       - WEB_VAULT_ENABLED=true
 
 networks:
-  front:
+  proxy_wan:
     external: true

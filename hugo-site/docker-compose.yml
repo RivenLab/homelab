@@ -9,8 +9,8 @@ services:
       - ${app_data}/htdocs/public/:/usr/share/nginx/html
       - ${app_data}/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
-      - front
+      - proxy_wan
 
 networks:
-  front:
+  proxy_wan:
     external: true

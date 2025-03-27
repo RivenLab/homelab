@@ -18,8 +18,8 @@ services:
     ports:
       - 6875:80
     networks:
-      - front
-      - back
+      - proxy_wan
+      - internal
     labels:
       - traefik.enable=true
       - traefik.http.routers.bookstack-http.entrypoints=web
@@ -45,12 +45,12 @@ services:
     volumes:
       - "${app_data}/mysql_data:/config"
     networks:
-      - back
+      - internal
 
 networks:
-  front:
-    name: front
+  proxy_wan:
+    name: proxy_wan
     external: true
-  back:
-    name: back
+  internal:
+    name: internal
     external: true

@@ -27,8 +27,8 @@ services:
       - traefik.http.routers.vikunja-https.rule=Host(`${app_url}`)
       - traefik.http.routers.vikunja-https.tls=true
     networks:
-      - front
-      - back
+      - proxy_lan
+      - internal
     volumes:
       - ${app_data}/files:/app/vikunja/files
     depends_on:
@@ -48,16 +48,16 @@ services:
       - ${app_data}/db:/var/lib/mysql
     restart: unless-stopped
     networks:
-      - back
+      - internal
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u $$MYSQL_USER --password=$$MYSQL_PASSWORD"]
       interval: 2s
       start_period: 30s
 
 networks:
-  front:
-    name: front
+  proxy_lan:
+    name: proxy_lan
     external: true
-  back:
-    name: front
+  internal:
+    name: proxy_lan
     external: true
