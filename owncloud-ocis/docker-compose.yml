@@ -1,0 +1,34 @@
+---
+services:
+  ocis:
+    image: owncloud/ocis:latest
+    container_name: owncloud-ocis
+    restart: always
+    entrypoint:
+      - /bin/sh
+    command: ["-c", "ocis init || true; ocis server"]
+    environment:
+      OCIS_URL=${app_url}
+      OCIS_LOG_LEVEL=warn
+      OCIS_LOG_COLOR=false
+      PROXY_TLS=false
+      OCIS_INSECURE=true
+      # Basic Auth is required for WebDAV clients that don't support OIDC
+      PROXY_ENABLE_BASIC_AUTH=false
+      IDM_ADMIN_PASSWORD=${admin_password}
+    networks:
+      - front
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.owncloud-ocis-http.entrypoints=web
+      - traefik.http.routers.owncloud-ocis-http.rule=Host(`${app_url}`)
+      - traefik.http.routers.owncloud-ocis-https.entrypoints=websecure
+      - traefik.http.routers.owncloud-ocis-https.rule=Host(`${app_url}`)
+      - traefik.http.routers.owncloud-ocis-https.tls=true
+    volumes:
+      - ${app_data}/cfg:/etc/ocis
+      - ${app_data}/app:/var/lib/ocis
+
+networks:
+  front:
+    external: true

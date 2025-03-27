@@ -4,13 +4,13 @@ services:
     container_name: vaultwarden
     image: vaultwarden/server:latest
     volumes:
-      - ${app_path}:/data/
+      - ${app_data}:/data/
     labels:
       - traefik.enable=true
       - traefik.http.routers.vaultwarden-http.entrypoints=web
-      - traefik.http.routers.vaultwarden-http.rule=Host(`${domain}`)
+      - traefik.http.routers.vaultwarden-http.rule=Host(`${app_url}`)
       - traefik.http.routers.vaultwarden-https.entrypoints=websecure
-      - traefik.http.routers.vaultwarden-https.rule=Host(`${domain}`)
+      - traefik.http.routers.vaultwarden-https.rule=Host(`${app_url}`)
       - traefik.http.routers.vaultwarden-https.tls=true
     networks:
       - front
@@ -27,7 +27,7 @@ services:
       - SMTP_AUTH_MECHANISM="Plain"
       - LOGIN_RATELIMIT_MAX_BURST=5
       - LOGIN_RATELIMIT_SECONDS=60
-      - DOMAIN=https://${domain}
+      - DOMAIN=https://${app_url}
       - INVITATION_ORG_NAME=RivenVault
       - INVITATIONS_ALLOWED=false
       - ADMIN_TOKEN=${admin_token}

@@ -5,7 +5,7 @@ services:
     restart: always
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
     volumes:
-      - ${app_path}/mysql:/var/lib/mysql
+      - ${app_data}/mysql:/var/lib/mysql
     networks:
       - back
     environment:
@@ -22,7 +22,7 @@ services:
     container_name: nextcloud-redis
     restart: always
     volumes:
-      - ${app_path}/redis:/data
+      - ${app_data}/redis:/data
     networks:
       - back
 
@@ -41,17 +41,17 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.nextcloud-http.entrypoints=web
-      - traefik.http.routers.nextcloud-http.rule=Host(`${domain}`)
+      - traefik.http.routers.nextcloud-http.rule=Host(`${app_url}`)
       - traefik.http.routers.nextcloud-https.entrypoints=websecure
-      - traefik.http.routers.nextcloud-https.rule=Host(`${domain}`)
+      - traefik.http.routers.nextcloud-https.rule=Host(`${app_url}`)
       - traefik.http.routers.nextcloud-https.tls=true
     links:
       - nextcloud_db
     volumes:
-      - ${app_path}/html:/var/www/html
-      - ${app_path}/custom_apps:/var/www/html/custom_apps
-      - ${app_path}/config:/var/www/html/config
-      - ${app_path}/data:/var/www/html/data
+      - ${app_data}/html:/var/www/html
+      - ${app_data}/custom_apps:/var/www/html/custom_apps
+      - ${app_data}/config:/var/www/html/config
+      - ${app_data}/data:/var/www/html/data
     environment:
       - PUID=1000
       - PGID=1000

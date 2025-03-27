@@ -10,9 +10,9 @@ services:
       - front
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${app_path}/traefik.toml:/etc/traefik/traefik.toml
-      - ${app_path}/acme.json:/acme.json
-      - ${app_path}/conf.d:/etc/traefik/conf.d
+      - ${app_data}/traefik.toml:/etc/traefik/traefik.toml
+      - ${app_data}/acme.json:/acme.json
+      - ${app_data}/conf.d:/etc/traefik/conf.d
     restart: always
 
 networks:
