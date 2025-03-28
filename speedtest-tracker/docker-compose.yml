@@ -20,5 +20,5 @@ services:
         - proxy
 
 networks:
-    proxy_wan:
+    proxy:
         external: true

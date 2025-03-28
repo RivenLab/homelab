@@ -35,7 +35,7 @@ services:
       - nextcloud_redis
     networks:
       - internal
-      - proxy_wan
+      - proxy
     ports:
       - 8999:80
     labels:
@@ -66,5 +66,5 @@ services:
 networks:
   internal:
     external: true
-  proxy_wan:
+  proxy:
     external: true
