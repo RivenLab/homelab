@@ -15,6 +15,8 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.api.rule=Host(`${app_url}`)
+      - traefik.http.routers.api.entrypoints=https
+      - traefik.http.routers.api.tls=true
       - traefik.http.routers.api.service=api@internal
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
