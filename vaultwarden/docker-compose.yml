@@ -32,6 +32,7 @@ services:
       - com.centurylinklabs.watchtower.monitor-only=true
     networks:
       - proxy
+      - internal
     environment:
       - TZ=${timezone}
       - SMTP_HOST=${mail_host}
