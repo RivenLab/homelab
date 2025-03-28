@@ -77,7 +77,7 @@ scheme = "https"
 [entryPoints.https]
 address = ":443"
   [entryPoints.https.http.tls]
-    options = "foobar"
+    options = "default"
     certResolver = "cloudflare"
     [[entryPoints.https.http.tls.domains]]
       main = "rvlab.xyz"
