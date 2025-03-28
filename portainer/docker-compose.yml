@@ -15,8 +15,10 @@ services:
       - EDGE_LICENSE_FILE=/root/docker/portainer/portainer-licence
     labels:
       - traefik.enable=true
-      - traefik.http.services.portainer.loadbalancer.server.port=9000
       - traefik.http.routers.portainer.rule=Host(`${app_url}`)
+      - traefik.http.routers.portainer.entrypoints=https
+      - traefik.http.routers.portainer.tls=true
+      - traefik.http.services.portainer.loadbalancer.server.port=8000
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro

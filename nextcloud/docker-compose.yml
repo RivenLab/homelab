@@ -40,11 +40,10 @@ services:
       - 8999:80
     labels:
       - traefik.enable=true
-      - traefik.http.routers.nextcloud-http.entrypoints=web
-      - traefik.http.routers.nextcloud-http.rule=Host(`${app_url}`)
-      - traefik.http.routers.nextcloud-https.entrypoints=websecure
-      - traefik.http.routers.nextcloud-https.rule=Host(`${app_url}`)
-      - traefik.http.routers.nextcloud-https.tls=true
+      - traefik.http.routers.nextcloud.rule=Host(`${app_url}`)
+      - traefik.http.routers.nextcloud.entrypoints=https
+      - traefik.http.routers.nextcloud.tls=true
+      - traefik.http.services.nextcloud.loadbalancer.server.port=80
     links:
       - nextcloud_db
     volumes:

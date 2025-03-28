@@ -21,11 +21,9 @@ services:
       VIKUNJA_ALLOW_ICON_CHANGES: true
     labels:
       - traefik.enable=true
-      - traefik.http.routers.vikunja-http.entrypoints=web
-      - traefik.http.routers.vikunja-http.rule=Host(`${app_url}`)
-      - traefik.http.routers.vikunja-https.entrypoints=websecure
-      - traefik.http.routers.vikunja-https.rule=Host(`${app_url}`)
-      - traefik.http.routers.vikunja-https.tls=true
+      - traefik.http.routers.vikunja.rule=Host(`${app_url}`)
+      - traefik.http.routers.vikunja.entrypoints=https
+      - traefik.http.routers.vikunja.tls=true
     networks:
       - proxy
       - internal

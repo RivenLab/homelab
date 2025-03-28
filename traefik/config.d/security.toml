@@ -1,7 +1,4 @@
 [http.middlewares]
-[http.middlewares.https-redirect.redirectScheme]
-  scheme = "https"
-  permanent = true
 [http.middlewares.restriction.ipAllowList]
 sourceRange = [
   "127.0.0.1/32",

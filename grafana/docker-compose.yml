@@ -12,12 +12,10 @@ services:
     ports:
      - '3000:3000'
     labels:
-     - traefik.enable=true
-     - traefik.http.routers.grafana-http.entrypoints=web
-     - traefik.http.routers.grafana-http.rule=Host(`${app_url}`)
-     - traefik.http.routers.grafana-https.entrypoints=websecure
-     - traefik.http.routers.grafana-https.rule=Host(`${app_url}`)
-     - traefik.http.routers.grafana-https.tls=true
+      - traefik.enable=true
+      - traefik.http.routers.grafana.rule=Host(`${app_url}`)
+      - traefik.http.routers.grafana.entrypoints=https
+      - traefik.http.routers.grafana.tls=true
     volumes:
      - ${app_data}/data:/var/lib/grafana
     networks:
