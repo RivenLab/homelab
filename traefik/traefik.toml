@@ -105,9 +105,6 @@ address = ":443"
 [entryPoints.https.http]
 middlewares = [ "security-headers@file", "rate-limit@file" ]
 
-[ping]
-entryPoint = "https"
-
 [serversTransport]
 insecureSkipVerify = true
 
