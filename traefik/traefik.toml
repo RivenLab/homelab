@@ -43,6 +43,7 @@ defaultMode = "drop"
 
 [entryPoints.http]
 address = ":80"
+
   [entryPoints.http.forwardedHeaders]
   trustedIPs = [
   "103.21.244.0/22",
@@ -75,6 +76,15 @@ scheme = "https"
 
 [entryPoints.https]
 address = ":443"
+  [entryPoints.https.http.tls]
+    options = "foobar"
+    certResolver = "cloudflare"
+    [[entryPoints.https.http.tls.domains]]
+      main = "rvlab.xyz"
+      sans = ["*.rvlab.xyz"]
+    [[entryPoints.https.http.tls.domains]]
+      main = "rvcloud.xyz"
+      sans = ["*.rvcloud.xyz"]
 
   [entryPoints.https.forwardedHeaders]
   trustedIPs = [
