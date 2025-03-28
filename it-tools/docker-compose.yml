@@ -6,12 +6,12 @@ services:
     hostname: it-tools
     restart: unless-stopped
     networks:
-     - proxy
+      - proxy
     labels:
-     - traefik.enable=true
-     - traefik.http.routers.it-tools.rule=Host(`tools.rvlab.xyz`)
-     - traefik.http.services.it-tools.loadbalancer.server.port=80
-     - traefik.http.routers.it-tools.middlewares=restriction@file
+      - traefik.enable=true
+      - traefik.http.routers.it-tools.rule=Host(`tools.rvlab.xyz`)
+      - traefik.http.services.it-tools.loadbalancer.server.port=80
+      #- traefik.http.routers.it-tools.middlewares=restriction@file
 
 networks:
  proxy:
