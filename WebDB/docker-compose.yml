@@ -13,8 +13,6 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.webdb.rule=Host(`${app_url}`)
-      - traefik.http.routers.webdb.entrypoints=https
-      - traefik.http.routers.webdb.tls=true
     networks:
       - proxy
       - internal

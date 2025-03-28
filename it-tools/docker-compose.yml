@@ -5,6 +5,8 @@ services:
     container_name: it-tools
     hostname: it-tools
     restart: unless-stopped
+    # ports:
+    #   - 8080:80
     networks:
       - proxy
     labels:

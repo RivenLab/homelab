@@ -22,8 +22,6 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.vikunja.rule=Host(`${app_url}`)
-      - traefik.http.routers.vikunja.entrypoints=https
-      - traefik.http.routers.vikunja.tls=true
     networks:
       - proxy
       - internal
