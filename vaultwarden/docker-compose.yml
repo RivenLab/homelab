@@ -2,16 +2,34 @@ services:
   vaultwarden:
     restart: always
     container_name: vaultwarden
-    image: vaultwarden/server:latest
+    image: vaultwarden/server:latest-alpine
     volumes:
-      - ${app_data}:/data/
+      - ${app_data}/data:/data/
+      - ${app_data}/logs:/logs
     labels:
       - traefik.enable=true
+      - traefik.docker.network=proxy
+      # Main service configuration
+      - traefik.http.services.vaultwarden.loadbalancer.server.port=80
+      # HTTP to HTTPS redirect
       - traefik.http.routers.vaultwarden-http.entrypoints=web
       - traefik.http.routers.vaultwarden-http.rule=Host(`${app_url}`)
+      - traefik.http.routers.vaultwarden-http.middlewares=https-redirect@file
+      # HTTPS configuration
       - traefik.http.routers.vaultwarden-https.entrypoints=websecure
       - traefik.http.routers.vaultwarden-https.rule=Host(`${app_url}`)
       - traefik.http.routers.vaultwarden-https.tls=true
+      - traefik.http.routers.vaultwarden-https.service=vaultwarden
+      # Admin access restriction
+      - traefik.http.routers.vaultwarden-admin.rule=Host(`${app_url}`) && PathPrefix(`/admin`)
+      - traefik.http.routers.vaultwarden-admin.middlewares=restriction@file
+      - traefik.http.routers.vaultwarden-admin.service=vaultwarden
+      # API version endpoint restriction
+      - traefik.http.routers.vaultwarden-api.rule=Host(`${app_url}`) && PathPrefix(`/api/version`)
+      - traefik.http.routers.vaultwarden-api.middlewares=restriction@file
+      - traefik.http.routers.vaultwarden-api.service=vaultwarden
+      # Watchtower configuration
+      - com.centurylinklabs.watchtower.monitor-only=true
     networks:
       - proxy
     environment:
@@ -31,6 +49,10 @@ services:
       - INVITATION_ORG_NAME=RivenVault
       - INVITATIONS_ALLOWED=false
       - ADMIN_TOKEN=${admin_token}
+      - ROCKET_ENV=prod
+      - LOG_LEVEL=error
+      - LOG_FILE=/data/logs/access.log
+      - WEBSOCKET_ENABLED=true
       - SIGNUPS_ALLOWED=false
       - SIGNUPS_VERIFY=true
       - SIGNUPS_VERIFY_RESEND_TIME=3600
@@ -38,6 +60,28 @@ services:
       - EMERGENCY_ACCESS_ALLOWED=true
       - SENDS_ALLOWED=true
       - WEB_VAULT_ENABLED=true
+
+  vaultwarden-backup:
+    image: bruceforce/vaultwarden-backup:latest
+    container_name: vaultwarden-backup
+    hostname: vaultwarden-backup
+    restart: always
+    init: true
+    depends_on:
+      - vaultwarden
+    volumes:
+      - ${app_data}/data:/data/
+      - ${app_data}/backup:/myBackup
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - TIMESTAMP=true
+      - DELETE_AFTER=30
+      - UID=0
+      - GID=1000
+      - TZ=${timezone}
+      - BACKUP_DIR=/myBackup
+      - CRON_TIME=50 3 * * *
 
 networks:
   proxy:
