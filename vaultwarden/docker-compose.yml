@@ -69,6 +69,8 @@ services:
     init: true
     depends_on:
       - vaultwarden
+    networks:
+      - internal
     volumes:
       - ${app_data}/data:/data/
       - ${app_data}/backup:/myBackup
@@ -84,5 +86,7 @@ services:
       - CRON_TIME=50 3 * * *
 
 networks:
+  internal:
+    external: false
   proxy:
     external: true
