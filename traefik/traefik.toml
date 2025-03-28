@@ -122,11 +122,11 @@ endpoint = "tcp://socket-proxy:2375"
 exposedByDefault = false
 
 [certificatesResolvers.cloudflare.acme]
-email = "youremail@email.com"
-storage = "/etc/traefik/acme.json"
-caServer: https://acme-v02.api.letsencrypt.org/directory # prod (default)
-# caServer: https://acme-staging-v02.api.letsencrypt.org/directory # staging
+email = "user@example.com"
+storage = "acme.json"
+caServer = "https://acme-v02.api.letsencrypt.org/directory"
+# caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
 
-  [certificatesResolvers.cloudflare.acme.dnsChallenge]
-  provider = "cloudflare"
-  resolvers = [ "1.1.1.1:53", "1.0.0.1:53" ]
+[certificatesResolvers.cloudflare.acme.dnsChallenge]
+provider = "cloudflare"
+resolvers = ["1.1.1.1:53", "1.0.0.1:53"]
