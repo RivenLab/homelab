@@ -1,7 +1,0 @@
-[tls.stores]
-  [tls.stores.default]
-    [tls.stores.default.defaultGeneratedCert]
-      resolver = "cloudflare"
-      [tls.stores.default.defaultGeneratedCert.domain]
-        main = "fqnd1"
-        sans = ["*.fqnd1", "fqdn2", "*.fqdn2"]

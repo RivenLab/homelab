@@ -1,0 +1,11 @@
+tls:
+  stores:
+    default:
+      defaultGeneratedCert:
+        resolver: "cloudflare"
+        domain:
+          main: "fqnd1"
+          sans:
+            - "*.fqnd1"
+            - "fqdn2"
+            - "*.fqdn2"

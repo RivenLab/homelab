@@ -1,0 +1,55 @@
+http:
+  middlewares:
+    restriction:
+      ipAllowList:
+        sourceRange:
+          - "127.0.0.1/32"
+          - "10.0.0.0/8"
+          - "172.16.0.0/12"
+          - "192.168.0.0/16"
+
+    security-headers:
+      headers:
+        hostsProxyHeaders:
+          - "X-Forwarded-Host"
+        contentTypeNosniff: true
+        customFrameOptionsValue: "SAMEORIGIN"
+        browserXssFilter: false
+        referrerPolicy: "strict-origin-when-cross-origin"
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsSeconds: 63072000
+        stsPreload: true
+
+        customResponseHeaders:
+          Server: ""
+          X-Powered-By: ""
+          X-Forwarded-Proto: "https"
+
+        sslProxyHeaders:
+          X-Forwarded-Proto: "https"
+
+        customRequestHeaders:
+          X-Forwarded-Proto: "https"
+
+    rate-limit:
+      rateLimit:
+        average: 100
+        period: 1
+        burst: 100
+
+    basic-auth:
+      basicAuth:
+        users: "admin:$2y$05$PtkRamYTn23eF/FBOAESr.ZOaQihD9SiwBNlwv5BDu6t/0IbOCnfS"
+
+tls:
+  options:
+    default:
+      minVersion: "VersionTLS12"
+      cipherSuites:
+        - "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+        - "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+        - "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"
+        - "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+        - "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305"
+        - "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305"
