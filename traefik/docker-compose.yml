@@ -20,7 +20,7 @@ services:
       - traefik.http.routers.api.service=api@internal
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${app_data}/traefik.toml:/etc/traefik/traefik.toml
+      - ${app_data}/traefik.yml:/etc/traefik/traefik.yml
       - ${app_data}/acme.json:/acme.json
       - ${app_data}/logs:/logs
       - ${app_data}/conf.d:/etc/traefik/conf.d
