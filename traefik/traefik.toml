@@ -106,7 +106,7 @@ address = ":443"
 middlewares = [ "security-headers@file", "rate-limit@file" ]
 
 [ping]
-entryPoint = "websecure"
+entryPoint = "https"
 
 [serversTransport]
 insecureSkipVerify = true
