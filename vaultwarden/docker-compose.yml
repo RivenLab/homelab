@@ -88,6 +88,6 @@ services:
 
 networks:
   internal:
-    external: false
+    external: true
   proxy:
     external: true
