@@ -12,6 +12,8 @@ services:
       - docker-proxynet
     environment:
       - TZ=${timezone}
+      - CF_DNS_API_TOKEN=${cf_api_token}
+      - TRAEFIK_DASHBOARD_CREDENTIALS=${dashboard_credentials}
     labels:
       - traefik.enable=true
       - traefik.http.routers.api.rule=Host(`${app_url}`)

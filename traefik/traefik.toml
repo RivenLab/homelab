@@ -121,5 +121,14 @@ directory= "/etc/traefik/conf.d/"
 watch = true
 network = "proxy"
 endpoint = "tcp://socket-proxy:2375"
-defaultRule = 'Host(`{{ index .Labels "com.docker.compose.service"}}.rvlab.xyz`)'
+#defaultRule = 'Host(`{{ index .Labels "com.docker.compose.service"}}.rvlab.xyz`)'
 exposedByDefault = false
+
+[certificatesResolvers.cloudflare.acme]
+email = "youremail@email.com"
+storage = "/etc/traefik/acme.json"
+caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+
+  [certificatesResolvers.cloudflare.acme.dnsChallenge]
+  provider = "cloudflare"
+  resolvers = [ "1.1.1.1:53", "1.0.0.1:53" ]

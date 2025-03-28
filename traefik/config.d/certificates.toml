@@ -1,4 +1,0 @@
-
-[[tls.certificates]]
-certFile = "/etc/traefik/conf.d/ssl/rvlab.xyz/fullchain.pem"
-keyFile  = "/etc/traefik/conf.d/ssl/rvlab.xyz/privkey.pem
