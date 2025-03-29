@@ -16,7 +16,7 @@ services:
     networks:
       - internal
     volumes:
-      - {app_data}/config:/config
+      - ${app_data}/config:/config
 networks:
   internal:
     external: true
