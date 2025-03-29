@@ -1,0 +1,22 @@
+---
+services:
+  hishtory-server:
+    image: lscr.io/linuxserver/hishtory-server:latest
+    container_name: hishtory-server
+    restart: unless-stopped
+    user: "1000:1000"
+    read_only: true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - HISHTORY_SQLITE_DB=/config/hishtory.db
+    ports:
+      - 8080:8080
+    networks:
+      - internal
+    volumes:
+      - {app_data}/config:/config
+networks:
+  internal:
+    external: true
