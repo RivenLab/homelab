@@ -12,7 +12,8 @@ services:
       - TZ=Etc/UTC
       - HISHTORY_SQLITE_DB=/config/hishtory.db
     ports:
-      - 8080:8080
+      - 8085:8080
+      - 8086:8080
     networks:
       - internal
     volumes:
