@@ -1,0 +1,28 @@
+http:
+  routers:
+    pfsense:
+      rule: "Host(`sub.example.com`)"
+      service: "fw"
+      entryPoints:
+        - "https"
+      tls: true
+
+    prx-cloud:
+      rule: "Host(`sub2.example.com`)"
+      service: "prx-cloud"
+      entryPoints:
+        - "https"
+      tls: true
+
+################################################
+
+  services:
+    fw:
+      loadBalancer:
+        servers:
+          - url: "https://10.0.0.1:9111"
+
+    prx-cloud:
+      loadBalancer:
+        servers:
+          - url: "https://10.0.0.2:8006"

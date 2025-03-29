@@ -5,16 +5,12 @@ global:
   sendAnonymousUsage: false
 
 log:
-  level: "INFO"
+  level: ERROR
 
 api:
   dashboard: true
   insecure: true
   debug: false
-
-# experimental.plugins.bouncer:
-#   moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
-#   version: "v1.4.1"
 
 # experimental.influxDB2:
 #   address: "http://influxdb2:8086"
@@ -26,110 +22,118 @@ api:
 #   addServicesLabels: true
 #   pushInterval: "60s"
 
+# Configuring Multiple Filters
 accessLog:
   filePath: "/logs/traefik.log"
-  format: "json"
-  bufferingSize: 0
-
+  format: json
   filters:
     statusCodes:
-      - "200-299"
-      - "400-599"
-
+      - "200-299" # log successful http requests
+      - "400-599" # log failed http requests
+    #retryAttempts: true
+    #minDuration: "10ms"
+  # collect logs as in-memory buffer before writing into log file
+  bufferingSize: 0
   fields:
     headers:
-      defaultMode: "drop"
+      defaultMode: drop # drop all headers per default
       names:
-        User-Agent: "keep"
+          User-Agent: keep # log user agent strings
 
+# The setting below is to allow insecure backend connections.
+serverTransport:
+  insecureSkipVerify: true
+
+# Traefik entrypoints (network ports) configuration
 entryPoints:
+  # Not used in apps, but redirect everything from HTTP to HTTPS
   http:
-    address: ":80"
-
+    address: :80
     forwardedHeaders:
-      trustedIPs:
-        - "103.21.244.0/22"
-        - "103.22.200.0/22"
-        - "103.31.4.0/22"
-        - "104.16.0.0/13"
-        - "104.24.0.0/14"
-        - "108.162.192.0/18"
-        - "131.0.72.0/22"
-        - "141.101.64.0/18"
-        - "162.158.0.0/15"
-        - "172.64.0.0/13"
-        - "173.245.48.0/20"
-        - "188.114.96.0/20"
-        - "190.93.240.0/20"
-        - "197.234.240.0/22"
-        - "198.41.128.0/17"
-        - "2400:cb00::/32"
-        - "2606:4700::/32"
-        - "2803:f800::/32"
-        - "2405:b500::/32"
-        - "2405:8100::/32"
-        - "2a06:98c0::/29"
-        - "2c0f:f248::/32"
-
+      trustedIPs: &trustedIps
+        # start of Clouflare public IP list for HTTP requests, remove this if you don't use it; https://www.cloudflare.com/de-de/ips/
+        - 103.21.244.0/22
+        - 103.22.200.0/22
+        - 103.31.4.0/22
+        - 104.16.0.0/13
+        - 104.24.0.0/14
+        - 108.162.192.0/18
+        - 131.0.72.0/22
+        - 141.101.64.0/18
+        - 162.158.0.0/15
+        - 172.64.0.0/13
+        - 173.245.48.0/20
+        - 188.114.96.0/20
+        - 190.93.240.0/20
+        - 197.234.240.0/22
+        - 198.41.128.0/17
+        - 2400:cb00::/32
+        - 2606:4700::/32
+        - 2803:f800::/32
+        - 2405:b500::/32
+        - 2405:8100::/32
+        - 2a06:98c0::/29
+        - 2c0f:f248::/32
+        # end of Cloudlare public IP list
     http:
       redirections:
         entryPoint:
-          to: "https"
-          scheme: "https"
+          to: https
+          scheme: https
 
   https:
-    address: ":443"
+    address: :443
+    forwardedHeaders:
+      trustedIPs: &trustedIps
+        # start of Clouflare public IP list for HTTP requests, remove this if you don't use it; https://www.cloudflare.com/de-de/ips/
+        - 103.21.244.0/22
+        - 103.22.200.0/22
+        - 103.31.4.0/22
+        - 104.16.0.0/13
+        - 104.24.0.0/14
+        - 108.162.192.0/18
+        - 131.0.72.0/22
+        - 141.101.64.0/18
+        - 162.158.0.0/15
+        - 172.64.0.0/13
+        - 173.245.48.0/20
+        - 188.114.96.0/20
+        - 190.93.240.0/20
+        - 197.234.240.0/22
+        - 198.41.128.0/17
+        - 2400:cb00::/32
+        - 2606:4700::/32
+        - 2803:f800::/32
+        - 2405:b500::/32
+        - 2405:8100::/32
+        - 2a06:98c0::/29
+        - 2c0f:f248::/32
+
     http:
       tls:
-        options: "default"
-        certResolver: "cloudflare"
+        options: default
+        certResolver: cloudflare
         domains:
-          - main: "fqdn1"
-            sans: ["*.fqdn1"]
-          - main: "fqdn2"
-            sans: ["*.fqdn2"]
-
-    forwardedHeaders:
-      trustedIPs:
-        - "103.21.244.0/22"
-        - "103.22.200.0/22"
-        - "103.31.4.0/22"
-        - "104.16.0.0/13"
-        - "104.24.0.0/14"
-        - "108.162.192.0/18"
-        - "131.0.72.0/22"
-        - "141.101.64.0/18"
-        - "162.158.0.0/15"
-        - "172.64.0.0/13"
-        - "173.245.48.0/20"
-        - "188.114.96.0/20"
-        - "190.93.240.0/20"
-        - "197.234.240.0/22"
-        - "198.41.128.0/17"
-        - "2400:cb00::/32"
-        - "2606:4700::/32"
-        - "2803:f800::/32"
-        - "2405:b500::/32"
-        - "2405:8100::/32"
-        - "2a06:98c0::/29"
-        - "2c0f:f248::/32"
-
-    middlewares:
-      - "security-headers@file"
-      - "rate-limit@file"
-
-serversTransport:
-  insecureSkipVerify: true
+          - main: fqdn1
+            sans:
+              - '*.fqdn1'
+          - main : fqdn2
+            sans:
+              - '*.fqdn2'
+      middlewares:
+        - security-headers@file # reference to a dynamic middleware for setting http security headers per default
+        - rate-limit@file # reference to a dynamic middleware for enabling rate limiting per default
+        #- crowdsec@file # reference to a dynamic middleware for enabling crowdsec bouncer
 
 providers:
-  providersThrottleDuration: "2s"
+  providersThrottleDuration: 2s
   file:
     watch: true
-    directory: "/etc/traefik/conf.d/"
+    directory: /etc/traefik/conf.d/
 
   docker:
     watch: true
-    network: "proxy"
+    network: proxy
     endpoint: "tcp://socket-proxy:2375"
     # defaultRule: 'Host(`{{ index .Labels "com.docker.compose.service"}}.rvlab.xyz`)'
     exposedByDefault: false
@@ -137,13 +141,12 @@ providers:
 certificatesResolvers:
   cloudflare:
     acme:
-      email: "user@example.com"
+      email: "no-reply@rvlab.xyz"
       storage: "acme.json"
-      caServer: "https://acme-v02.api.letsencrypt.org/directory"
-      # caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
-
+      # caServer: "https://acme-v02.api.letsencrypt.org/directory" # production (default)
+      # caServer: "https://acme-staging-v02.api.letsencrypt.org/directory" # staging
       dnsChallenge:
-        provider: "cloudflare"
+        provider: cloudflare
         resolvers:
           - "1.1.1.1:53"
           - "1.0.0.1:53"
