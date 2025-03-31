@@ -12,8 +12,8 @@ services:
     environment:
       OCIS_URL: https://${app_url}
       OCIS_LOG_LEVEL: debug
-      OCIS_LOG_COLOR: "false"
-      proxy_TLS: "false"
+      OCIS_LOG_COLOR: "true"
+      proxy_TLS: "true"
       OCIS_INSECURE: "true"
       proxy_ENABLE_BASIC_AUTH: "false"
       IDM_ADMIN_PASSWORD: ${admin_password}
