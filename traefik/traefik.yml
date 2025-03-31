@@ -78,7 +78,7 @@ entryPoints:
 ### EXTERNAL
   # Redirect everything from HTTP to HTTPS
   http-external:
-    address: :80
+    address: :81
     http:
       redirections:
         entryPoint:
@@ -86,7 +86,7 @@ entryPoints:
           scheme: https
 
   https-external:
-    address: :443
+    address: :444
     forwardedHeaders:
     http:
       tls:
