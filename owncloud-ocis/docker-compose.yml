@@ -12,7 +12,7 @@ services:
       OCIS_LOG_LEVEL: error
       OCIS_LOG_PRETTY: true
       OCIS_LOG_COLOR: true
-      proxy_TLS: false
+      proxy_TLS: true
       OCIS_INSECURE: true
       proxy_ENABLE_BASIC_AUTH: false
       IDM_ADMIN_PASSWORD: ${admin_password}
