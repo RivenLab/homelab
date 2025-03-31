@@ -11,7 +11,7 @@ services:
     #  - "9200:9200"
     environment:
       OCIS_URL: https://${app_url}
-      OCIS_LOG_LEVEL: debug
+      OCIS_LOG_LEVEL: WARN
       OCIS_LOG_COLOR: "true"
       proxy_TLS: "true"
       OCIS_INSECURE: "true"
