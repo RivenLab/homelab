@@ -19,18 +19,18 @@ services:
       - proxy_wan
     labels:
       - traefik.enable=true
-      - traefik.http.routers.owncloud.entrypoints=https-external
+      # - traefik.http.routers.owncloud.entrypoints=https-external
       - traefik.http.routers.owncloud.rule=Host(`${app_url}`)
-      - traefik.http.services.owncloud.loadbalancer.server.port=9200
-      - traefik.http.middlewares.limit-owncloud.buffering.maxRequestBodyBytes=50000000
-      - traefik.http.middlewares.limit-owncloud.buffering.maxResponseBodyBytes=50000000
-      - traefik.http.middlewares.limit-owncloud.buffering.memRequestBodyBytes=50000000
-      - traefik.http.middlewares.limit-owncloud.buffering.memResponseBodyBytes=50000000
-      - traefik.http.routers.owncloud.middlewares=limit-owncloud
-      # Disallow listing version details via /status.php endpoint
-      - traefik.http.routers.owncloud-version-disclosure.rule=Host(`${app_url}`) && Path(`/status.php`)
-      - traefik.http.routers.owncloud-version-disclosure.middlewares=restriction@file
-      - traefik.http.routers.owncloud-version-disclosure.entrypoints=https-external
+      # - traefik.http.services.owncloud.loadbalancer.server.port=9200
+      # - traefik.http.middlewares.limit-owncloud.buffering.maxRequestBodyBytes=50000000
+      # - traefik.http.middlewares.limit-owncloud.buffering.maxResponseBodyBytes=50000000
+      # - traefik.http.middlewares.limit-owncloud.buffering.memRequestBodyBytes=50000000
+      # - traefik.http.middlewares.limit-owncloud.buffering.memResponseBodyBytes=50000000
+      # - traefik.http.routers.owncloud.middlewares=limit-owncloud
+      # # Disallow listing version details via /status.php endpoint
+      # - traefik.http.routers.owncloud-version-disclosure.rule=Host(`${app_url}`) && Path(`/status.php`)
+      # - traefik.http.routers.owncloud-version-disclosure.middlewares=restriction@file
+      # - traefik.http.routers.owncloud-version-disclosure.entrypoints=https-external
     volumes:
       - ${app_data}/cfg:/etc/ocis
       - ${app_data}/app:/var/lib/ocis
