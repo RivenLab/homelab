@@ -24,7 +24,7 @@ services:
       - traefik.http.routers.vaultwarden-api.middlewares=restriction@file,security-headers@file
       - traefik.http.routers.vaultwarden-api.tls=true
     networks:
-      - proxy
+      - proxy_wan
       - internal
     environment:
       - TZ=${timezone}
@@ -82,5 +82,5 @@ services:
 networks:
   internal:
     external: true
-  proxy:
+  proxy_wan:
     external: true

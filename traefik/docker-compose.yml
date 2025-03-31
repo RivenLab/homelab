@@ -7,8 +7,7 @@ services:
       - "80:80"
       - "443:443"
     networks:
-      - proxy_lan
-      - internal
+      - proxy
       - docker-proxy_lannet
     environment:
       - TZ=${timezone}
@@ -45,9 +44,7 @@ services:
       - /run
 
 networks:
-  proxy_lan:
-    external: true
-  internal:
+  proxy:
     external: true
   docker-proxy_lannet:
     external: true
