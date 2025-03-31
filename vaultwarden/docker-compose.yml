@@ -9,20 +9,17 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.vaultwarden.loadbalancer.server.port=80
-      # HTTPS Router
       - traefik.http.routers.vaultwarden.rule=Host(`${app_url}`)
       - traefik.http.routers.vaultwarden.entrypoints=https-external
-      - traefik.http.routers.vaultwarden.tls=true
+      - traefik.http.routers.ocis.middlewares=crowdsec@file
       # Admin Route with IP Restriction
       - traefik.http.routers.vaultwarden-admin.rule=Host(`${app_url}`) && PathPrefix(`/admin`)
       - traefik.http.routers.vaultwarden-admin.entrypoints=https-internal
-      - traefik.http.routers.vaultwarden-admin.middlewares=restriction@file,security-headers@file
-      - traefik.http.routers.vaultwarden-admin.tls=true
+      - traefik.http.routers.vaultwarden-admin.middlewares=restriction@file,security-headers@file,crowdsec@file
       # API Version Endpoint with IP Restriction
       - traefik.http.routers.vaultwarden-api.rule=Host(`${app_url}`) && PathPrefix(`/api/version`)
       - traefik.http.routers.vaultwarden-api.entrypoints=https-internal
-      - traefik.http.routers.vaultwarden-api.middlewares=restriction@file,security-headers@file
-      - traefik.http.routers.vaultwarden-api.tls=true
+      - traefik.http.routers.vaultwarden-api.middlewares=restriction@file,security-headers@file,crowdsec@file
     networks:
       - proxy
       - internal
