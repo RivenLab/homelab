@@ -1,0 +1,26 @@
+---
+services:
+  obsidian:
+    image: lscr.io/linuxserver/obsidian:latest
+    container_name: obsidian
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.obsidian.rule=Host(`${app_url}`)
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${timezone}
+    volumes:
+      - ${app_data}/config:/config
+      - "${app_data}/vault:/config/Obsidian Vault"
+    ports:
+      - 3000:3000
+      - 3001:3001
+    shm_size: "1gb"
+
+networks:
+  proxy:
+    external: true
