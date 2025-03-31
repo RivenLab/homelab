@@ -11,7 +11,7 @@ services:
       OCIS_URL: https://${app_url}
       OCIS_LOG_LEVEL: WARN
       OCIS_LOG_COLOR: "true"
-      proxy_TLS: "false"
+      proxy_TLS: "true"
       OCIS_INSECURE: "true"
       proxy_ENABLE_BASIC_AUTH: "false"
       IDM_ADMIN_PASSWORD: ${admin_password}
