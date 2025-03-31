@@ -16,7 +16,7 @@ services:
       proxy_ENABLE_BASIC_AUTH: "false"
       IDM_ADMIN_PASSWORD: ${admin_password}
     networks:
-      - proxy_wan
+      - proxy
     labels:
       - traefik.enable=true
       # - traefik.http.routers.owncloud.entrypoints=https-external
@@ -36,5 +36,5 @@ services:
       - ${app_data}/app:/var/lib/ocis
 
 networks:
-  proxy_wan:
+  proxy:
     external: true
