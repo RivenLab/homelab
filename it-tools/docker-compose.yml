@@ -11,6 +11,7 @@ services:
       - proxy
     labels:
       - traefik.enable=true
+      - traefik.http.routers.it-tools.entrypoints=https-internal
       - traefik.http.routers.it-tools.rule=Host(`tools.rvlab.xyz`)
       - traefik.http.services.it-tools.loadbalancer.server.port=80
       - traefik.http.routers.it-tools.middlewares=restriction@file

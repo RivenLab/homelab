@@ -38,6 +38,7 @@ services:
       - proxy
     labels:
       - traefik.enable=true
+      - traefik.http.routers.nextcloud.entrypoints=https-internal
       - traefik.http.routers.nextcloud.rule=Host(`${app_url}`)
       - traefik.http.services.nextcloud.loadbalancer.server.port=80
     links:

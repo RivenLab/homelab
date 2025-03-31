@@ -15,6 +15,7 @@ services:
       - EDGE_LICENSE_FILE=/root/docker/portainer/portainer-licence
     labels:
       - traefik.enable=true
+      - traefik.http.routers.portainer.entrypoints=https-internal
       - traefik.http.routers.portainer.rule=Host(`${app_url}`)
       - traefik.http.services.portainer.loadbalancer.server.port=9000
     volumes:
