@@ -11,9 +11,9 @@ services:
     #  - "9200:9200"
     environment:
       OCIS_URL: https://${app_url}
-      OCIS_LOG_LEVEL: warn
+      OCIS_LOG_LEVEL: debug
       OCIS_LOG_COLOR: "false"
-      proxy_TLS: "false"
+      proxy_TLS: "true"
       OCIS_INSECURE: "true"
       proxy_ENABLE_BASIC_AUTH: "false"
       IDM_ADMIN_PASSWORD: ${admin_password}
