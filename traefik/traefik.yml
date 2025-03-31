@@ -46,35 +46,10 @@ serverTransport:
 
 # Traefik entrypoints (network ports) configuration
 entryPoints:
-  # Not used in apps, but redirect everything from HTTP to HTTPS
+### INTERNAL
+  # Redirect everything from HTTP to HTTPS
   http:
     address: :80
-    forwardedHeaders:
-      trustedIPs: &trustedIps
-        # start of Clouflare public IP list for HTTP requests, remove this if you don't use it; https://www.cloudflare.com/de-de/ips/
-        - 103.21.244.0/22
-        - 103.22.200.0/22
-        - 103.31.4.0/22
-        - 104.16.0.0/13
-        - 104.24.0.0/14
-        - 108.162.192.0/18
-        - 131.0.72.0/22
-        - 141.101.64.0/18
-        - 162.158.0.0/15
-        - 172.64.0.0/13
-        - 173.245.48.0/20
-        - 188.114.96.0/20
-        - 190.93.240.0/20
-        - 197.234.240.0/22
-        - 198.41.128.0/17
-        - 2400:cb00::/32
-        - 2606:4700::/32
-        - 2803:f800::/32
-        - 2405:b500::/32
-        - 2405:8100::/32
-        - 2a06:98c0::/29
-        - 2c0f:f248::/32
-        # end of Cloudlare public IP list
     http:
       redirections:
         entryPoint:
@@ -84,31 +59,35 @@ entryPoints:
   https:
     address: :443
     forwardedHeaders:
-      trustedIPs: &trustedIps
-        # start of Clouflare public IP list for HTTP requests, remove this if you don't use it; https://www.cloudflare.com/de-de/ips/
-        - 103.21.244.0/22
-        - 103.22.200.0/22
-        - 103.31.4.0/22
-        - 104.16.0.0/13
-        - 104.24.0.0/14
-        - 108.162.192.0/18
-        - 131.0.72.0/22
-        - 141.101.64.0/18
-        - 162.158.0.0/15
-        - 172.64.0.0/13
-        - 173.245.48.0/20
-        - 188.114.96.0/20
-        - 190.93.240.0/20
-        - 197.234.240.0/22
-        - 198.41.128.0/17
-        - 2400:cb00::/32
-        - 2606:4700::/32
-        - 2803:f800::/32
-        - 2405:b500::/32
-        - 2405:8100::/32
-        - 2a06:98c0::/29
-        - 2c0f:f248::/32
+    http:
+      tls:
+        options: default
+        certResolver: cloudflare
+        domains:
+          - main: fqdn1
+            sans:
+              - '*.fqdn1'
+          - main : fqdn2
+            sans:
+              - '*.fqdn2'
+      middlewares:
+        - security-headers@file # reference to a dynamic middleware for setting http security headers per default
+        - rate-limit@file # reference to a dynamic middleware for enabling rate limiting per default
+        #- crowdsec@file # reference to a dynamic middleware for enabling crowdsec bouncer
 
+### EXTERNAL
+  # Redirect everything from HTTP to HTTPS
+  http-external:
+    address: :80
+    http:
+      redirections:
+        entryPoint:
+          to: https
+          scheme: https
+
+  https-external:
+    address: :443
+    forwardedHeaders:
     http:
       tls:
         options: default
@@ -135,13 +114,13 @@ providers:
     watch: true
     network: proxy
     endpoint: "tcp://socket-proxy:2375"
-    # defaultRule: 'Host(`{{ index .Labels "com.docker.compose.service"}}.rvlab.xyz`)'
+    # defaultRule: 'Host(`{{ index .Labels "com.docker.compose.service"}}.fqdn1`)'
     exposedByDefault: false
 
 certificatesResolvers:
   cloudflare:
     acme:
-      email: "no-reply@rvlab.xyz"
+      email: "example@example.com"
       storage: "acme.json"
       # caServer: "https://acme-v02.api.letsencrypt.org/directory" # production (default)
       # caServer: "https://acme-staging-v02.api.letsencrypt.org/directory" # staging
