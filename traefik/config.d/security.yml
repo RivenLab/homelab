@@ -1,7 +1,4 @@
 http:
-  serversTransports:
-    insecureTransport:
-      insecureSkipVerify: true
 
   middlewares:
     restriction:

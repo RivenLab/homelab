@@ -41,7 +41,7 @@ accessLog:
           User-Agent: keep # log user agent strings
 
 # The setting below is to allow insecure backend connections.
-serverTransport:
+serversTransport:
   insecureSkipVerify: true
 
 # Traefik entrypoints (network ports) configuration
