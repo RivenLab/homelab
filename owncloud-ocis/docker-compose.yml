@@ -14,7 +14,7 @@ services:
       OCIS_LOG_COLOR: true
       PROXY_TLS: false
       OCIS_INSECURE: true
-      proxy_ENABLE_BASIC_AUTH: false
+      PROXY_ENABLE_BASIC_AUTH: false
       IDM_ADMIN_PASSWORD: ${admin_password}
       #STORAGE_USERS_DATA_GATEWAY_URL: http://ocis:9200/data
     networks:
