@@ -17,8 +17,8 @@ services:
     volumes:
         - ${app_data}/data:/config
     networks:
-        - proxy_lan
+        - proxy
 
 networks:
-    proxy_lan:
+    proxy:
         external: true

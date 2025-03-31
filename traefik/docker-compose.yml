@@ -8,7 +8,7 @@ services:
       - "443:443"
     networks:
       - proxy
-      - docker-proxy_lannet
+      - docker-proxynet
     environment:
       - TZ=${timezone}
       - CF_DNS_API_TOKEN=${cf_api_token}
@@ -28,16 +28,16 @@ services:
     security_opt:
       - no-new-privileges:true
 
-  socket-proxy_lan:
-    image: lscr.io/linuxserver/socket-proxy_lan:1.26.2
-    container_name: socket-proxy_lan
+  socket-proxy:
+    image: lscr.io/linuxserver/socket-proxy:1.26.2
+    container_name: socket-proxy
     environment:
       - CONTAINERS=1
       - EVENTS=1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
-      - docker-proxy_lannet
+      - docker-proxynet
     restart: always
     read_only: true
     tmpfs:
@@ -46,5 +46,5 @@ services:
 networks:
   proxy:
     external: true
-  docker-proxy_lannet:
+  docker-proxynet:
     external: true

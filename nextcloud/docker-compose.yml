@@ -35,7 +35,7 @@ services:
       - nextcloud_redis
     networks:
       - internal
-      - proxy_wan
+      - proxy
     labels:
       - traefik.enable=true
       - traefik.http.routers.nextcloud.rule=Host(`${app_url}`)
@@ -61,5 +61,5 @@ services:
 networks:
   internal:
     external: true
-  proxy_wan:
+  proxy:
     external: true

@@ -29,8 +29,8 @@ services:
     security_opt:
      - no-new-privileges=true      
     networks:
-     - proxy_wan
+     - proxy
 
 networks:
- proxy_wan:
+ proxy:
    external: true
