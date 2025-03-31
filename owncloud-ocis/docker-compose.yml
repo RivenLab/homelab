@@ -8,7 +8,9 @@ services:
       - /bin/sh
     command: ["-c", "ocis init || true; ocis server"]
     ports:
-      - "9250:9250"
+      - 9200:9200
+    expose:
+      - 9200
     environment:
       OCIS_URL: https://${app_url}
       OCIS_LOG_LEVEL: WARN
