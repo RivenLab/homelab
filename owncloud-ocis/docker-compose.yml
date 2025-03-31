@@ -7,7 +7,7 @@ services:
     entrypoint:
       - /bin/sh
     command: ["-c", "ocis init || true; ocis server"]
-    port:
+    ports:
       - "9200:9200"
     environment:
       OCIS_URL: https://${app_url}
