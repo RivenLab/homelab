@@ -19,7 +19,7 @@ services:
       - proxy
     labels:
       - traefik.enable=true
-      # - traefik.http.routers.owncloud.entrypoints=https-external
+      - traefik.http.routers.owncloud.entrypoints=https-external
       - traefik.http.routers.owncloud.rule=Host(`${app_url}`)
       # - traefik.http.services.owncloud.loadbalancer.server.port=9200
       # - traefik.http.middlewares.limit-owncloud.buffering.maxRequestBodyBytes=50000000
