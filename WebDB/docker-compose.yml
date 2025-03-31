@@ -14,7 +14,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.webdb.rule=Host(`${app_url}`)
     networks:
-      - proxy
+      - proxy_lan
       - internal
 
   maria:
@@ -39,7 +39,7 @@ services:
       - internal
 
 networks:
-  proxy:
+  proxy_lan:
     external: true
   internal:
     external: true

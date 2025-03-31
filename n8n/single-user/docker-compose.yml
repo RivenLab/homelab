@@ -23,7 +23,7 @@ services:
     volumes:
       - ${app_data}:/home/node/.n8n
     networks:
-      - proxy
+      - proxy_lan
 networks:
-  proxy:
+  proxy_lan:
     external: true

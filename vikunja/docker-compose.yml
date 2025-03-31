@@ -23,7 +23,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.vikunja.rule=Host(`${app_url}`)
     networks:
-      - proxy
+      - proxy_lan
       - internal
     volumes:
       - ${app_data}/files:/app/vikunja/files
@@ -51,9 +51,9 @@ services:
       start_period: 30s
 
 networks:
-  proxy:
-    name: proxy
+  proxy_lan:
+    name: proxy_lan
     external: true
   internal:
-    name: proxy
+    name: proxy_lan
     external: true

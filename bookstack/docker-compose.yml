@@ -18,7 +18,7 @@ services:
     # ports:
     #   - 6875:80
     networks:
-      - proxy
+      - proxy_wan
       - internal
     labels:
       - traefik.enable=true
@@ -45,8 +45,8 @@ services:
       - internal
 
 networks:
-  proxy:
-    name: proxy
+  proxy_wan:
+    name: proxy_wan
     external: true
   internal:
     name: internal

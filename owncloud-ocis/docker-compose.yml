@@ -11,12 +11,12 @@ services:
       OCIS_URL: https://${app_url}
       OCIS_LOG_LEVEL: warn
       OCIS_LOG_COLOR: "false"
-      PROXY_TLS: "false"
+      proxy_wan_TLS: "false"
       OCIS_INSECURE: "true"
-      PROXY_ENABLE_BASIC_AUTH: "false"
+      proxy_wan_ENABLE_BASIC_AUTH: "false"
       IDM_ADMIN_PASSWORD: ${admin_password}
     networks:
-      - proxy
+      - proxy_wan
     labels:
       - traefik.enable=true
       - traefik.http.routers.owncloud.rule=Host(`${app_url}`)
@@ -25,5 +25,5 @@ services:
       - ${app_data}/app:/var/lib/ocis
 
 networks:
-  proxy:
+  proxy_wan:
     external: true

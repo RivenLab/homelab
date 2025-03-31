@@ -9,7 +9,7 @@ services:
     ports:
       - 9000:9000
     networks:
-      - proxy
+      - proxy_lan
     environment:
       - EDGE=1
       - EDGE_LICENSE_FILE=/root/docker/portainer/portainer-licence
@@ -23,5 +23,5 @@ services:
       - ${app_data}/portainer-data:/data
 
 networks:
-  proxy:
+  proxy_lan:
     external: true
