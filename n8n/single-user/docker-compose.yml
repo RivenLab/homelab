@@ -22,10 +22,12 @@ services:
       - traefik.http.routers.n8n-webhook.rule=Host(`${webhook_domain}`)
       - traefik.http.routers.n8n-webhook.entrypoints=https-external
       - traefik.http.services.n8n-webhook.loadbalancer.server.port=5678
+      - traefik.http.routers.n8n-webhook.service=n8n-webhook-service
       # Router for app_domain
       - traefik.http.routers.n8n-app.rule=Host(`${app_domain}`)
       - traefik.http.routers.n8n-app.entrypoints=https-internal
       - traefik.http.services.n8n-app.loadbalancer.server.port=5678
+      - traefik.http.routers.n8n-app.service=n8n-app-service
     volumes:
       - ${app_data_path}:/home/node/.n8n
     networks:
