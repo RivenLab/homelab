@@ -30,7 +30,7 @@ services:
       - traefik.http.middlewares.limit-ocis.buffering.memResponseBodyBytes=50000000
       # Disallow listing version details via /status.php endpoint
       # - traefik.http.routers.ocis-version-disclosure.rule=Host(`${app_domain}`) && Path(`/status.php`)
-      # - traefik.http.routers.ocis-version-disclosure.middlewares=restriction@file
+      # - traefik.http.routers.ocis-version-disclosure.middlewares=local-ipwhitelist@file
       # - traefik.http.routers.ocis-version-disclosure.entrypoints=https-external
     volumes:
       - ${app_data_path}/cfg:/etc/ocis

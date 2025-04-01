@@ -79,7 +79,7 @@ entryPoints:
       middlewares:
         - security-headers@file
         - rate-limit@file
-        - restriction@file
+        - local-ipwhitelist@file
         # - crowdsec@file # uncomment to enable per default
 
 ### EXTERNAL
