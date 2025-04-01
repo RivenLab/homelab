@@ -16,12 +16,12 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.portainer.entrypoints=https-internal
-      - traefik.http.routers.portainer.rule=Host(`${app_url}`)
+      - traefik.http.routers.portainer.rule=Host(`${app_domain}`)
       - traefik.http.services.portainer.loadbalancer.server.port=9000
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${app_data}/portainer-data:/data
+      - ${app_data_path}/portainer-data:/data
 
 networks:
   proxy:

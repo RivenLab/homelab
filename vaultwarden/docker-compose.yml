@@ -4,22 +4,19 @@ services:
     container_name: vaultwarden
     image: vaultwarden/server:latest-alpine
     volumes:
-      - ${app_data}/data:/data/
-      - ${app_data}/logs:/data/logs
+      - ${app_data_path}/data:/data/
+      - ${app_data_path}/logs:/data/logs
     labels:
       - traefik.enable=true
       - traefik.http.services.vaultwarden.loadbalancer.server.port=80
-      - traefik.http.routers.vaultwarden.rule=Host(`${app_url}`)
+      - traefik.http.routers.vaultwarden.rule=Host(`${app_domain}`)
       - traefik.http.routers.vaultwarden.entrypoints=https-external
-      - traefik.http.routers.ocis.middlewares=crowdsec@file
       # Admin Route with IP Restriction
-      - traefik.http.routers.vaultwarden-admin.rule=Host(`${app_url}`) && PathPrefix(`/admin`)
+      - traefik.http.routers.vaultwarden-admin.rule=Host(`${app_domain}`) && PathPrefix(`/admin`)
       - traefik.http.routers.vaultwarden-admin.entrypoints=https-internal
-      - traefik.http.routers.vaultwarden-admin.middlewares=restriction@file,security-headers@file,crowdsec@file
       # API Version Endpoint with IP Restriction
-      - traefik.http.routers.vaultwarden-api.rule=Host(`${app_url}`) && PathPrefix(`/api/version`)
+      - traefik.http.routers.vaultwarden-api.rule=Host(`${app_domain}`) && PathPrefix(`/api/version`)
       - traefik.http.routers.vaultwarden-api.entrypoints=https-internal
-      - traefik.http.routers.vaultwarden-api.middlewares=restriction@file,security-headers@file,crowdsec@file
     networks:
       - proxy
       - internal
@@ -36,7 +33,7 @@ services:
       - SMTP_AUTH_MECHANISM="Plain"
       - LOGIN_RATELIMIT_MAX_BURST=5
       - LOGIN_RATELIMIT_SECONDS=60
-      - DOMAIN=https://${app_url}
+      - DOMAIN=https://${app_domain}
       - INVITATION_ORG_NAME=RivenVault
       - INVITATIONS_ALLOWED=false
       - ADMIN_TOKEN=${admin_token}
@@ -63,8 +60,8 @@ services:
     networks:
       - internal
     volumes:
-      - ${app_data}/data:/data/
-      - ${app_data}/backup:/myBackup
+      - ${app_data_path}/data:/data/
+      - ${app_data_path}/backup:/myBackup
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
     environment:

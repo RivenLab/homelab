@@ -8,14 +8,14 @@ services:
       - proxy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.obsidian.rule=Host(`${app_url}`)
+      - traefik.http.routers.obsidian.rule=Host(`${app_domain}`)
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=${timezone}
     volumes:
-      - ${app_data}/config:/config
-      - "${app_data}/vault:/config/Obsidian Vault"
+      - ${app_data_path}/config:/config
+      - "${app_data_path}/vault:/config/Obsidian Vault"
     ports:
       - 3000:3000
       - 3001:3001

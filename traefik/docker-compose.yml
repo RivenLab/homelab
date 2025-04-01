@@ -18,14 +18,14 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.api.entrypoints=https-internal
-      - traefik.http.routers.api.rule=Host(`${app_url}`)
+      - traefik.http.routers.api.rule=Host(`${app_domain}`)
       - traefik.http.routers.api.service=api@internal
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${app_data}/traefik.yml:/etc/traefik/traefik.yml
-      - ${app_data}/acme.json:/acme.json
-      - ${app_data}/logs:/logs
-      - ${app_data}/conf.d:/etc/traefik/conf.d
+      - ${app_data_path}/traefik.yml:/etc/traefik/traefik.yml
+      - ${app_data_path}/acme.json:/acme.json
+      - ${app_data_path}/logs:/logs
+      - ${app_data_path}/conf.d:/etc/traefik/conf.d
     extra_hosts:
       - host.docker.internal:172.17.0.1
     security_opt:

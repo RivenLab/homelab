@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     user: "1000:1000"
     environment:
-     - GF_SERVER_ROOT_URL=https://${app_url}
+     - GF_SERVER_ROOT_URL=https://${app_domain}
      - GF_PLUGINS_PREINSTALL=grafana-clock-panel
      - GF_DEFAULT_INSTANCE_NAME=grafana
      - GF_LOG_LEVEL=error
@@ -14,10 +14,10 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.grafana.entrypoints=https-internal
-      - traefik.http.routers.grafana.rule=Host(`${app_url}`)
+      - traefik.http.routers.grafana.rule=Host(`${app_domain}`)
       - traefik.http.routers.grafana.tls=true
     volumes:
-     - ${app_data}/data:/var/lib/grafana
+     - ${app_data_path}/data:/var/lib/grafana
     networks:
      - proxy
 networks:

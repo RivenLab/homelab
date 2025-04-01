@@ -12,8 +12,8 @@ services:
       - 7422 # appsec waf endpoint
     volumes:
       # crowdsec container data
-      - ${app_data}/data:/var/lib/crowdsec/data
-      - ${app_data}/etc:/etc/crowdsec
+      - ${app_data_path}/data:/var/lib/crowdsec/data
+      - ${app_data_path}/etc:/etc/crowdsec
       # log bind mounts into crowdsec
       - /var/log/auth.log:/var/log/auth.log:ro
       - /var/log/syslog:/var/log/syslog:ro
@@ -21,7 +21,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.crowdsec.entrypoints=https-internal
-      - traefik.http.routers.crowdsec.rule=Host(`${app_url}`)
+      - traefik.http.routers.crowdsec.rule=Host(`${app_domain}`)
     environment:
       - GID=1000
       - COLLECTIONS=crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/base-http-scenarios crowdsecurity/sshd crowdsecurity/linux crowdsecurity/appsec-crs crowdsecurity/appsec-generic-rules crowdsecurity/appsec-virtual-patching

@@ -10,12 +10,11 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.hugo-rvlab.entrypoints=https-external
-      - traefik.http.routers.hugo-rvlab.rule=Host(`${app_url}`)
+      - traefik.http.routers.hugo-rvlab.rule=Host(`${app_domain}`)
       - traefik.http.services.hugo-rvlab.loadbalancer.server.port=80
-      - traefik.http.routers.hugo-rvlab.middlewares=crowdsec@file
     volumes:
-      - ${app_data}/htdocs/public/:/usr/share/nginx/html
-      - ${app_data}/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ${app_data_path}/htdocs/public/:/usr/share/nginx/html
+      - ${app_data_path}/nginx.conf:/etc/nginx/conf.d/default.conf
 
 networks:
   proxy:

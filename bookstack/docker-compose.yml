@@ -6,7 +6,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - APP_URL=https://${app_url}
+      - app_domain=https://${app_domain}
       - APP_KEY=${app_key}
       - DB_HOST=bookstack_db
       - DB_PORT=3306
@@ -14,7 +14,7 @@ services:
       - DB_USER=${mysql_user}
       - DB_PASS=${mysql_password}
     volumes:
-      - "${app_data}/app_data:/config"
+      - "${app_data_path}/app_data_path:/config"
     # ports:
     #   - 6875:80
     networks:
@@ -23,7 +23,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.bookstack.entrypoints=https-external
-      - traefik.http.routers.bookstack.rule=Host(`${app_url}`)
+      - traefik.http.routers.bookstack.rule=Host(`${app_domain}`)
       - traefik.http.services.bookstack.loadbalancer.server.port=80
     depends_on:
       - bookstack_db
@@ -41,7 +41,7 @@ services:
       - MYSQL_USER=${mysql_user}
       - MYSQL_PASSWORD=${mysql_password}
     volumes:
-      - "${app_data}/mysql_data:/config"
+      - "${app_data_path}/mysql_data:/config"
     networks:
       - internal
 

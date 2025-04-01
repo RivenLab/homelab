@@ -3,7 +3,7 @@ services:
     image: vikunja/vikunja
     container_name: todo
     environment:
-      VIKUNJA_SERVICE_PUBLICURL: ${app_url}
+      VIKUNJA_SERVICE_PUBLICURL: ${app_domain}
       VIKUNJA_DATABASE_HOST: db
       VIKUNJA_DATABASE_PASSWORD: ${mysql_password}
       VIKUNJA_DATABASE_TYPE: mysql
@@ -22,12 +22,12 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.vikunja.entrypoints=https-internal
-      - traefik.http.routers.vikunja.rule=Host(`${app_url}`)
+      - traefik.http.routers.vikunja.rule=Host(`${app_domain}`)
     networks:
       - proxy
       - internal
     volumes:
-      - ${app_data}/files:/app/vikunja/files
+      - ${app_data_path}/files:/app/vikunja/files
     depends_on:
       db:
         condition: service_healthy
@@ -42,7 +42,7 @@ services:
       MYSQL_PASSWORD: ${mysql_password}
       MYSQL_DATABASE: ${mysql_database}
     volumes:
-      - ${app_data}/db:/var/lib/mysql
+      - ${app_data_path}/db:/var/lib/mysql
     restart: unless-stopped
     networks:
       - internal

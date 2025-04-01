@@ -6,13 +6,13 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - "${app_data}/.ssh:/root/.ssh:ro"
-      - "${app_data}/.webdb:/usr/src/app/static/version"
+      - "${app_data_path}/.ssh:/root/.ssh:ro"
+      - "${app_data_path}/.webdb:/usr/src/app/static/version"
     ports:
       - "127.0.0.1:22071:22071"
     labels:
       - traefik.enable=true
-      - traefik.http.routers.webdb.rule=Host(`${app_url}`)
+      - traefik.http.routers.webdb.rule=Host(`${app_domain}`)
     networks:
       - proxy
       - internal
