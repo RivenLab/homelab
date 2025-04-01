@@ -16,7 +16,7 @@ services:
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       - WEBHOOK_URL=https://${webhook_domain}/
       - GENERIC_TIMEZONE=${timezone}
-        labels:
+    labels:
       - traefik.enable=true
       # Router for webhook_domain
       - traefik.http.routers.n8n-webhook.rule=Host(`${webhook_domain}`)
