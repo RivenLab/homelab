@@ -1,0 +1,47 @@
+---
+services:
+  server:
+    image: gitea/gitea:1.22.2
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    restart: always
+    ports:
+      # - "3000:3000" # HTTP
+      - "3222:22" # SSH
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.gitea.entrypoints=https-internal
+      - traefik.http.routers.gitea.rule=Host(`${app_domain}`)
+      - traefik.http.services.gitea.loadbalancer.server.port=3000
+    networks:
+      - proxy
+      - internal
+    volumes:
+      - ${app_data_path}/data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+  # runner:
+  #   image: gitea/act_runner:latest
+  #   restart: always
+  #   networks:
+  #     - internal
+  #   environment:
+  #     CONFIG_FILE: /config.yaml
+  #     GITEA_INSTANCE_URL: "https://${app_domain}/"
+  #     GITEA_RUNNER_REGISTRATION_TOKEN: ""
+  #     GITEA_RUNNER_NAME: "Runner"
+  #     GITEA_RUNNER_LABELS: "runner"
+  #   volumes:
+  #     - /docker/gitea/config/config.yaml:/config.yaml
+  #     - /docker/gitea/data:/data
+  #     - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  proxy:
+    external: true
+  internal:
+    external: true
+    

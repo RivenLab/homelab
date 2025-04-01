@@ -81,6 +81,7 @@ entryPoints:
       middlewares:
         - security-headers@file
         - rate-limit@file
+        - restriction@file
         # - crowdsec@file # uncomment to enable per default
 
 ### EXTERNAL
@@ -108,9 +109,9 @@ entryPoints:
             sans:
               - '*.fqdn2'
       middlewares:
-        - security-headers@file # reference to a dynamic middleware for setting http security headers per default
-        - rate-limit@file # reference to a dynamic middleware for enabling rate limiting per default
-        #- crowdsec@file # reference to a dynamic middleware for enabling crowdsec bouncer
+        - security-headers@file
+        - rate-limit@file
+        - crowdsec@file
 
 providers:
   providersThrottleDuration: 2s
