@@ -42,7 +42,6 @@ cat > terraform.tfvars.json << EOF
   "vm_description": "$vm_description",
   "cpu_cores": $cpu_cores,
   "memory_dedicated": $memory_value,
-  "memory_floating": $memory_value,
   "ip_address": "$ip_address/24"
 }
 EOF

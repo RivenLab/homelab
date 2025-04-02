@@ -34,7 +34,6 @@ cpu_type           = "x86-64-v2-AES"
 
 # Memory Configuration
 memory_dedicated   = 2048
-memory_floating    = 2048
 
 # Disk Configuration
 disk_size          = 20

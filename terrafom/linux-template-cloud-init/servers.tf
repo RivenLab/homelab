@@ -24,7 +24,6 @@ resource "proxmox_virtual_environment_vm" "debian_vm" {
 
   memory {
     dedicated = var.memory_dedicated
-    floating  = var.memory_floating
   }
 
   disk {

@@ -94,11 +94,6 @@ variable "memory_dedicated" {
   type        = number
 }
 
-variable "memory_floating" {
-  description = "Floating memory for the VM (MB)"
-  type        = number
-}
-
 # Disk Configuration
 variable "disk_size" {
   description = "Size of the disk for the VM (GB)"
