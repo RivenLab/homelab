@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     user: "1000:1000"
     environment:
-     - GF_SERVER_ROOT_URL=https://${app_domain}
+     - GF_SERVER_ROOT_URL=https://${grafana_app_domain}
      - GF_PLUGINS_PREINSTALL=grafana-clock-panel
      - GF_DEFAULT_INSTANCE_NAME=grafana
      - GF_LOG_LEVEL=error
@@ -14,12 +14,36 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.grafana.entrypoints=https-internal
-      - traefik.http.routers.grafana.rule=Host(`${app_domain}`)
-      - traefik.http.routers.grafana.tls=true
+      - traefik.http.routers.grafana.rule=Host(`${grafana_app_domain}`)
     volumes:
      - ${app_data_path}/data:/var/lib/grafana
     networks:
      - proxy
+
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb2
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    # ports:
+    #   - 8086:8086
+    volumes:
+      - $app_data_path/config:/etc/influxdb2
+      - $app_data_path/db:/var/lib/influxdb2
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.influxdb.entrypoints=https-internal
+      - traefik.http.routers.influxdb.rule=Host(`${influxdb_app_domain}`)
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=${influxdb_username}
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${influxdb_password}
+      - DOCKER_INFLUXDB_INIT_ORG=${influxdb_org}
+      - DOCKER_INFLUXDB_INIT_BUCKET=${influxdb_bucket}
+    networks:
+     - proxy
+
 networks:
   proxy:
     external: true
