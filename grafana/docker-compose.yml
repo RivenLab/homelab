@@ -16,7 +16,7 @@ services:
       - traefik.http.routers.grafana.entrypoints=https-internal
       - traefik.http.routers.grafana.rule=Host(`${grafana_app_domain}`)
     volumes:
-     - ${app_data_path}/data:/var/lib/grafana
+     - ${app_data_path}/grafana/data:/var/lib/grafana
     networks:
      - proxy
 
@@ -29,8 +29,8 @@ services:
     # ports:
     #   - 8086:8086
     volumes:
-      - $app_data_path/config:/etc/influxdb2
-      - $app_data_path/db:/var/lib/influxdb2
+      - ${app_data_path}/influxdb2/config:/etc/influxdb2
+      - ${app_data_path}/influxdb2/db:/var/lib/influxdb2
     labels:
       - traefik.enable=true
       - traefik.http.routers.influxdb.entrypoints=https-internal

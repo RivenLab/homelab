@@ -16,6 +16,10 @@ services:
         - DISPLAY_TIMEZONE=${timezone}
     volumes:
         - ${app_data_path}/data:/config
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.speedtest-tracker.entrypoints=https-internal
+      - traefik.http.routers.speedtest-tracker.rule=Host(`${app_domain}`)
     networks:
         - proxy
 
