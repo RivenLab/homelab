@@ -5,24 +5,24 @@ services:
     restart: unless-stopped
     container_name: speedtest-tracker
     ports:
-        - 8080:80
+			- 8080:80
     environment:
-        - PUID=1000
-        - PGID=1000
-        - APP_KEY=${app_key}
-        - app_domain=${app_domain}
-        - DB_CONNECTION=sqlite
-        - SPEEDTEST_SCHEDULE="0 */3 * * *"
-        - DISPLAY_TIMEZONE=${timezone}
+			- PUID=1000
+			- PGID=1000
+			- APP_KEY=${app_key}
+			- app_domain=${app_domain}
+			- DB_CONNECTION=sqlite
+			- SPEEDTEST_SCHEDULE="0 */3 * * *"
+			- DISPLAY_TIMEZONE=${timezone}
     volumes:
-        - ${app_data_path}/data:/config
+			- ${app_data_path}/data:/config
     labels:
       - traefik.enable=true
       - traefik.http.routers.speedtest-tracker.entrypoints=https-internal
       - traefik.http.routers.speedtest-tracker.rule=Host(`${app_domain}`)
     networks:
-        - proxy
+			- proxy
 
 networks:
     proxy:
-        external: true
+			external: true
