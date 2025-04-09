@@ -6,7 +6,7 @@ services:
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
-    command: rcd --rc-web-gui --rc-addr 0.0.0.0:5572 --rc-web-fetch-url=https://api.github.com/repos/rclone/rclone-webui-react/releases/latest --rc-web-gui-update --rc-user user --rc-pass rclone -vv --checksum --transfers=4 --checkers=4 --contimeout=60s --timeout=300s --retries=3 --low-level-retries=10 --stats=1s --stats-file-name-length=0
+    command: rcd --rc-web-gui --rc-addr 0.0.0.0:5572 --rc-web-fetch-url=https://api.github.com/repos/rclone/rclone-webui-react/releases/latest --rc-web-gui-update --rc-user ${rc_user} --rc-pass ${rc_password} -vv --checksum --transfers=4 --checkers=4 --contimeout=60s --timeout=300s --retries=3 --low-level-retries=10 --stats=1s --stats-file-name-length=0
     #ports:
     #  - "5572:5572" add this port if you're not using a proxy
     volumes:
