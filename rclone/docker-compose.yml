@@ -21,7 +21,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.rclone-dashboard.entrypoints=https-internal
       - traefik.http.routers.rclone-dashboard.rule=Host(`${app_domain}`)
-      - traefik.http.services.rclone-dashboard.loadbalancer.server.port=9200
+      - traefik.http.services.rclone-dashboard.loadbalancer.server.port=5572
 
 networks:
   proxy:
