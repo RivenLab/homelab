@@ -19,7 +19,7 @@ services:
       proxy:
     labels:
       - traefik.enable=true
-      - traefik.http.routers.rclone-dashboard.entrypoints=https-external
+      - traefik.http.routers.rclone-dashboard.entrypoints=https-internal
       - traefik.http.routers.rclone-dashboard.rule=Host(`${app_domain}`)
       - traefik.http.services.rclone-dashboard.loadbalancer.server.port=9200
 
