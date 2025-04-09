@@ -1,0 +1,28 @@
+---
+services:
+  rclone:
+    image: rclone/rclone:latest
+    container_name: rclone
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    command: rcd --rc-web-gui --rc-addr 0.0.0.0:5572 --rc-web-fetch-url=https://api.github.com/repos/rclone/rclone-webui-react/releases/latest --rc-web-gui-update --rc-user user --rc-pass rclone -vv --checksum --transfers=4 --checkers=4 --contimeout=60s --timeout=300s --retries=3 --low-level-retries=10 --stats=1s --stats-file-name-length=0
+    #ports:
+    #  - "5572:5572" add this port if you're not using a proxy
+    volumes:
+      - ${app_data_path}/config:/config/rclone #location of your rclone config file
+      - ${app_data_path}/sync_script:/sync_script #script to allow remote execution of backups
+      - ${backup_data_path}:/data #change to wherever you store the data you wish to upload
+    environment:
+      - PHP_TZ=${timezone}
+    networks:
+      proxy:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.rclone-dashboard.entrypoints=https-external
+      - traefik.http.routers.rclone-dashboard.rule=Host(`${app_domain}`)
+      - traefik.http.services.rclone-dashboard.loadbalancer.server.port=9200
+
+networks:
+  proxy:
+    external: true
