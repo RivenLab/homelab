@@ -24,14 +24,12 @@ prompt_with_default() {
 }
 
 prompt_with_default "Enter cloned VM ID" "601" "clone_vm_id"
-
 prompt_with_default "Enter VM name" "debian-vm" "vm_name"
-
 prompt_with_default "Enter VM description" "Debian 12 VM created with Terraform" "vm_description"
-
 prompt_with_default "Enter number of CPU cores" "2" "cpu_cores"
-
 prompt_with_default "Enter memory in MB" "2048" "memory_value"
+
+prompt_with_default "Enter disk size in GIB" "20" "disk_size"
 
 prompt_with_default "Enter IP address" "10.20.20.150" "ip_address"
 
@@ -42,6 +40,7 @@ cat > terraform.tfvars.json << EOF
   "vm_description": "$vm_description",
   "cpu_cores": $cpu_cores,
   "memory_dedicated": $memory_value,
+  "disk_size": $disk_size,
   "ip_address": "$ip_address/24"
 }
 EOF

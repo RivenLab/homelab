@@ -105,6 +105,11 @@ variable "disk_interface" {
   type        = string
 }
 
+variable "disk_discard" {
+  description = "Whether to pass discard/trim requests to the underlying storage"
+  type        = string
+}
+
 variable "disk_iothread" {
   description = "Enable I/O threads for the disk"
   type        = bool

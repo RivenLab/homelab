@@ -30,6 +30,7 @@ resource "proxmox_virtual_environment_vm" "debian_vm" {
     size         = var.disk_size
     interface    = var.disk_interface
     iothread     = var.disk_iothread
+    discard      = var.disk_discard
     datastore_id = var.datastore_id
   }
 
@@ -61,5 +62,25 @@ resource "proxmox_virtual_environment_vm" "debian_vm" {
 
   operating_system {
     type = var.os_type
+  }
+
+  provisioner "remote-exec" {
+    connection {
+      type     = "ssh"
+      user     = "dragon"
+      private_key = "${file("~/.ssh/id_ed25519")}"
+      host     = split("/", var.ip_address)[0]
+  }
+    inline = [
+      "sleep 2",
+      "ROOT_DISK=$(lsblk -no PKNAME,MOUNTPOINT | grep '/$' | awk '{print $1}' | sed 's/[0-9]*$//')",
+      "par=$()",
+      "sudo growpart /dev/$ROOT_DISK 2",
+      "sudo growpart /dev/$ROOT_DISK 5",
+      "sudo pvresize /dev/$${ROOT_DISK}5",
+      "LV_PATH=$(findmnt / -no SOURCE)",
+      "sudo lvextend -l +100%FREE $LV_PATH",
+      "sudo resize2fs $LV_PATH"
+    ]
   }
 }
