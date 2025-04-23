@@ -29,6 +29,7 @@ source "proxmox-iso" "debian" {
     io_thread    = true
     storage_pool = var.disk_storage_pool
     type         = "scsi"
+    discard      = true
   }
 
   scsi_controller = "virtio-scsi-single"

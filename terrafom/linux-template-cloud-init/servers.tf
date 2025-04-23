@@ -72,7 +72,7 @@ resource "proxmox_virtual_environment_vm" "debian_vm" {
       host     = split("/", var.ip_address)[0]
   }
     inline = [
-      "sleep 2",
+      "sleep 10",
       "ROOT_DISK=$(lsblk -no PKNAME,MOUNTPOINT | grep '/$' | awk '{print $1}' | sed 's/[0-9]*$//')",
       "par=$()",
       "sudo growpart /dev/$ROOT_DISK 2",
