@@ -18,6 +18,7 @@ services:
       - ${app_data_path}/config/config.production.json:/var/lib/ghost/config.production.json
     networks:
       - proxy
+      - internal
     labels:
       - traefik.enable=true
       - traefik.http.routers.ghost-cms.entrypoints=https-internal
@@ -31,7 +32,11 @@ services:
       MYSQL_ROOT_PASSWORD: example
     volumes:
       - ${app_data_path}/mysql:/var/lib/mysql
+    networks:
+      - internal
 
 networks:
+  internal:
+    external: true
   proxy:
     external: true
