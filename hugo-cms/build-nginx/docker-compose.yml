@@ -8,6 +8,7 @@ services:
       - ${app_data_path}/htdocs:/src
     working_dir: /src
     command: hugo --minify
+    container_name: hugo-builder
     profiles: ["build"]
 
   hugo-web:
