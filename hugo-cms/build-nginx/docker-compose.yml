@@ -3,6 +3,7 @@ services:
   hugo-builder:
     build:
       context: ${app_data_path}
+      dockerfile: Dockerfile
     volumes:
       - ${app_data_path}/htdocs:/src
     working_dir: /src

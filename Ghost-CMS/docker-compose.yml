@@ -2,15 +2,16 @@
 services:
   ghost:
     image: ghost:5-alpine
+    container_name: ghost-cms
     restart: always
     # ports:
     #   - 8080:2368
     environment:
       database__client: mysql
-      database__connection__host: db
-      database__connection__user: root
-      database__connection__password: example
-      database__connection__database: ghost
+      database__connection__host: ghost-db
+      database__connection__user: ${ghost_db_user}
+      database__connection__password: ${ghost_db_password}
+      database__connection__database: ${ghost_db}
       url: https://${app_domain}
       NODE_ENV: production
     volumes:
@@ -25,11 +26,12 @@ services:
       - traefik.http.routers.ghost-cms.rule=Host(`${app_domain}`)
       - traefik.http.services.ghost-cms.loadbalancer.server.port=2368
 
-  db:
+  ghost-db:
     image: mysql:8.0
+    container_name: ghost-cms-mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      MYSQL_ROOT_PASSWORD: ${ghost_db_root_password}
     volumes:
       - ${app_data_path}/mysql:/var/lib/mysql
     networks:
