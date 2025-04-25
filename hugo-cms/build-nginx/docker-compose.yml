@@ -3,16 +3,13 @@ services:
   hugo-builder:
     build:
       context: ${app_data_path}
-      dockerfile: Dockerfile
     volumes:
       - ${app_data_path}/htdocs:/src
     working_dir: /src
     command: hugo --minify
-    restart: "no"
-    depends_on:
-      - web
+    profiles: ["build"]
 
-  web:
+  hugo-web:
     image: nginx:alpine
     container_name: hugo-website
     restart: always
