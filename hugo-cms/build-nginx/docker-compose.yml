@@ -1,0 +1,31 @@
+---
+services:
+  hugo-builder:
+    build:
+      context: ${app_data_path}
+    volumes:
+      - ${app_data_path}/htdocs:/src
+    working_dir: /src
+    command: hugo --minify
+    restart: "no"
+    depends_on:
+      - web
+
+  web:
+    image: nginx:alpine
+    container_name: hugo-website
+    restart: always
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.hugo-rvlab.entrypoints=https-external
+      - traefik.http.routers.hugo-rvlab.rule=Host(`${app_domain}`)
+      - traefik.http.services.hugo-rvlab.loadbalancer.server.port=80
+    volumes:
+      - ${app_data_path}/htdocs/public:/usr/share/nginx/html
+      - ${app_data_path}/nginx.conf:/etc/nginx/conf.d/default.conf
+
+networks:
+  proxy:
+    external: true
