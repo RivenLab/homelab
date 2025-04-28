@@ -16,7 +16,7 @@ services:
       - internal
 
   passbolt:
-    image: passbolt/passbolt:latest-ce-non-root
+    image: passbolt/passbolt:latest-ce
     container_name: passbolt
     hostname: passbolt
     restart: always
