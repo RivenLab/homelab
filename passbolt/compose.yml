@@ -36,8 +36,8 @@ services:
       EMAIL_TRANSPORT_DEFAULT_PASSWORD: ${mail_password}
       EMAIL_TRANSPORT_DEFAULT_TLS: true
     volumes:
-      - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/passbolt/gpg:/etc/passbolt/gpg
-      - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/passbolt/jwt:/etc/passbolt/jwt
+      - ${DOCKER_VOLUME_STORAGE:-/docker}/passbolt/gpg:/etc/passbolt/gpg
+      - ${DOCKER_VOLUME_STORAGE:-/docker}/passbolt/jwt:/etc/passbolt/jwt
     command: ["/usr/bin/wait-for.sh", "-t", "0", "passbolt-db:3306", "--", "/docker-entrypoint.sh"]
     # ports:
       # - 8543:8080
