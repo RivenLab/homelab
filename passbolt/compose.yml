@@ -39,7 +39,7 @@ services:
       - ${app_data_path}/gpg:/etc/passbolt/gpg
       - ${app_data_path}/jwt:/etc/passbolt/jwt
     command: ["/usr/bin/wait-for.sh", "-t", "0", "passbolt-db:3306", "--", "/docker-entrypoint.sh"]
-    ports:
+    # ports:
       # - 8543:8080
       # - 8432:4433
     networks:
