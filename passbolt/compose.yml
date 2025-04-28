@@ -44,6 +44,7 @@ services:
       # - 8432:4433
     networks:
       - proxy
+      - internal
     labels:
       - traefik.enable=true
       - traefik.http.routers.passbolt.entrypoints=https-internal
