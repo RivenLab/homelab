@@ -18,7 +18,8 @@ services:
       VIKUNJA_MAILER_PORT: ${mail_port}
       VIKUNJA_MAILER_USERNAME: ${mail_username}
       VIKUNJA_MAILER_PASSWORD: ${mail_password}
-      VIKUNJA_ALLOW_ICON_CHANGES: true
+      VIKUNJA_ALLOW_ICON_CHANGES: false
+      VIKUNJA_SERVICE_CUSTOMLOGOURL: ${custom_logo_url}
     labels:
       - traefik.enable=true
       - traefik.http.routers.vikunja.entrypoints=https-internal
