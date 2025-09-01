@@ -4,7 +4,7 @@ services:
     container_name: n8n
     restart: always
     ports:
-      - "127.0.0.1:5678:5678"
+      - "5678:5678"
     environment:
       - N8N_HOST=${app_domain}
       - N8N_PORT=5678
@@ -19,12 +19,12 @@ services:
     labels:
       - traefik.enable=true
       # Router for webhook_domain
-      - traefik.http.routers.n8n-webhook.rule=Host(`${webhook_domain}`)
       - traefik.http.routers.n8n-webhook.entrypoints=https-external
+      - traefik.http.routers.n8n-webhook.rule=Host(`${webhook_domain}`)
       - traefik.http.services.n8n-webhook.loadbalancer.server.port=5678
       # Router for app_domain
-      - traefik.http.routers.n8n-app.rule=Host(`${app_domain}`)
       - traefik.http.routers.n8n-app.entrypoints=https-internal
+      - traefik.http.routers.n8n-app.rule=Host(`${app_domain}`)
       - traefik.http.services.n8n-app.loadbalancer.server.port=5678
     volumes:
       - ${app_data_path}:/home/node/.n8n
