@@ -22,15 +22,15 @@ services:
       - internal
     environment:
       - TZ=${timezone}
-      - SMTP_HOST=${mail_host}
-      - SMTP_FROM=${mail_username}
-      - SMTP_FROM_NAME=VaultWarden
-      - SMTP_SECURITY=starttls
-      - SMTP_PORT=${mail_port}
-      - SMTP_USERNAME=${mail_username}
-      - SMTP_PASSWORD=${mail_password}
-      - SMTP_TIMEOUT=30
-      - SMTP_AUTH_MECHANISM="Plain"
+      #- SMTP_HOST=${mail_host}
+      #- SMTP_FROM=${mail_username}
+      #- SMTP_FROM_NAME=VaultWarden
+      #- SMTP_SECURITY=starttls
+      #- SMTP_PORT=${mail_port}
+      #- SMTP_USERNAME=${mail_username}
+      #- SMTP_PASSWORD=${mail_password}
+      #- SMTP_TIMEOUT=30
+      #- SMTP_AUTH_MECHANISM="Plain"
       - LOGIN_RATELIMIT_MAX_BURST=5
       - LOGIN_RATELIMIT_SECONDS=60
       - DOMAIN=https://${app_domain}
