@@ -3,6 +3,8 @@ services:
     restart: always
     container_name: vaultwarden
     image: vaultwarden/server:latest-alpine
+    ports:
+      - 8888:80
     volumes:
       - ${app_data_path}/data:/data/
       - ${app_data_path}/logs:/data/logs
