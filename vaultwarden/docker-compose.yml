@@ -13,10 +13,10 @@ services:
       - traefik.http.routers.vaultwarden.entrypoints=https-external
       # Admin Route with IP Restriction
       - traefik.http.routers.vaultwarden-admin.rule=Host(`${app_domain}`) && PathPrefix(`/admin`)
-      - traefik.http.routers.vaultwarden-admin.entrypoints=https-external
+      - traefik.http.routers.vaultwarden-admin.entrypoints=https-internal
       # API Version Endpoint with IP Restriction
       - traefik.http.routers.vaultwarden-api.rule=Host(`${app_domain}`) && PathPrefix(`/api/version`)
-      - traefik.http.routers.vaultwarden-api.entrypoints=https-external
+      - traefik.http.routers.vaultwarden-api.entrypoints=https-internal
     networks:
       - proxy
       - internal
