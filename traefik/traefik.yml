@@ -55,7 +55,7 @@ entryPoints:
 ### INTERNAL
   # Redirect everything from HTTP to HTTPS
   http-internal:
-    address: :80
+    address: 10.80.80.3:80
     http:
       redirections:
         entryPoint:
@@ -63,7 +63,7 @@ entryPoints:
           scheme: https
 
   https-internal:
-    address: :443
+    address: 10.80.80.3:443
     forwardedHeaders:
     http:
       tls:
@@ -85,7 +85,7 @@ entryPoints:
 ### EXTERNAL
   # Redirect everything from HTTP to HTTPS
   http-external:
-    address: :81
+    address: 84.234.21.16:80
     http:
       redirections:
         entryPoint:
@@ -93,7 +93,7 @@ entryPoints:
           scheme: https
 
   https-external:
-    address: :444
+    address: 84.234.21.16:443
     forwardedHeaders:
     http:
       tls:
