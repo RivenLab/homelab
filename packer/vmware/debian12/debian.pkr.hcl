@@ -73,4 +73,10 @@ build {
     destination = "/etc/cloud/cloud.cfg"
     source      = "cloud.cfg"
   }
+
+  provisioner "shell" {
+    inline = [
+      "cloud-init clean --machine-id",
+    ]
+  }
 }

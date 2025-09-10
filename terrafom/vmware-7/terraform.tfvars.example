@@ -1,0 +1,118 @@
+# vSphere Authentication
+vsphere_user     = "administrator@vsphere.local"
+vsphere_password = "your-vsphere-password"
+vsphere_server   = "192.168.1.100"
+
+# vSphere Infrastructure
+vsphere_datacenter = "datacenter"
+vsphere_datastore  = "datastore1"
+vsphere_compute_cluster = "cluster"
+vsphere_network    = "VM Network"
+vsphere_virtual_machine_template = "debian11-template"
+
+# VM Configuration
+vm_name = "terraform-vm"
+vm_description = "VM created with Terraform"
+vm_folder = ""
+vm_tags = ["terraform", "debian11"]
+
+# CPU Configuration
+cpu_cores = 2
+cpu_sockets = 1
+
+# Memory Configuration
+memory_mb = 4096
+
+# Disk Configuration
+disk_size_gb = 20
+disk_thin_provisioned = true
+disk_eagerly_scrub = false
+disk_mode = "persistent"
+
+# Network Configuration
+ip_address = "192.168.1.100"
+ip_netmask = 24
+gateway = "192.168.1.1"
+dns_servers = ["8.8.8.8", "8.8.4.4"]
+dns_domain = "local"
+dns_suffix_list = []
+
+# VM Customization
+hostname = "terraform-vm"
+username = "dragon"
+password = "your-password"
+
+# SSH Keys
+ssh_keys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID/pRNjhwdzA8X6Nk7KH/b4G5qHyHCCaEk0yKPO3+oFF jumper@dragon.local"
+]
+
+# Guest OS Configuration
+guest_id = "debian11_64Guest"
+scsi_type = "pvscsi"
+network_adapter_type = "vmxnet3"
+
+# VMware Tools Options
+sync_time_with_host = true
+sync_time_with_host_periodically = false
+run_tools_scripts_after_power_on = true
+run_tools_scripts_after_resume = true
+run_tools_scripts_before_guest_shutdown = true
+tools_upgrade_policy = "manual"
+
+# Resource Allocation (set to null for no limits)
+cpu_limit = null
+cpu_reservation = null
+cpu_share_level = "custom"
+cpu_share_count = null
+
+memory_limit = null
+memory_reservation = null
+memory_share_level = "custom"
+memory_share_count = null
+
+# Boot Options
+boot_delay = null
+boot_retry_delay = 10000
+boot_retry_enabled = false
+
+# Advanced Options
+enable_disk_uuid = false
+enable_logging = false
+force_power_off = true
+shutdown_wait_timeout = 3
+
+# Network Wait Options
+wait_for_guest_net_timeout = 5
+wait_for_guest_ip_timeout = 0
+wait_for_guest_net_routable = true
+
+# Network Bandwidth Options (set to null for no limits)
+network_bandwidth_limit = null
+network_bandwidth_reservation = null
+network_bandwidth_share_level = "normal"
+network_bandwidth_share_count = null
+
+# Clone Options
+linked_clone = false
+clone_timeout = 30
+customization_timeout = 10
+
+# Linux Customization Options
+linux_hw_clock_utc = true
+linux_time_zone = "UTC"
+linux_script_text = ""
+
+# Additional Disks (example - uncomment to use)
+# additional_disks = [
+#   {
+#     label = "disk1"
+#     size = 50
+#     unit_number = 1
+#     thin_provisioned = true
+#     eagerly_scrub = false
+#     disk_mode = "persistent"
+#     write_through = false
+#     datastore_id = null
+#   }
+# ]

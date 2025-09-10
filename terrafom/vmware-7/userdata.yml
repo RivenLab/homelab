@@ -1,0 +1,23 @@
+#cloud-config
+users:
+  - name: ${username}
+    groups: [sudo, users]
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    lock_passwd: false
+    ssh_authorized_keys:
+%{ for key in ssh_keys ~}
+      - ${key}
+%{ endfor ~}
+
+# Use the new chpasswd format
+chpasswd:
+  users:
+    - name: ${username}
+      password: ${password}
+      type: text
+  expire: false
+
+ssh_pwauth: true
+package_update: true
+package_upgrade: true

@@ -1,0 +1,18 @@
+---
+instance-id: ${hostname}
+local-hostname: ${hostname}
+network:
+  version: 1
+  config:
+    - type: physical
+      name: ens192
+      subnets:
+        - type: static
+          address: ${ip_address}/${ip_netmask}
+          gateway: ${gateway}
+          dns_nameservers:
+%{ for dns in dns_servers ~}
+            - ${dns}
+%{ endfor ~}
+          dns_search:
+            - ${dns_domain}

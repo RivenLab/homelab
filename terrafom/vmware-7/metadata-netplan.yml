@@ -1,0 +1,21 @@
+---
+instance-id: ${hostname}
+local-hostname: ${hostname}
+network:
+  version: 2
+  ethernets:
+    ens192:
+      dhcp4: false
+      dhcp6: false
+      addresses:
+        - ${ip_address}/${ip_netmask}
+      routes:
+        - to: default
+          via: ${gateway}
+      nameservers:
+        addresses:
+%{ for dns in dns_servers ~}
+          - ${dns}
+%{ endfor ~}
+        search:
+          - ${dns_domain}

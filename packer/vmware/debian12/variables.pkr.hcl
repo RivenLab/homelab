@@ -178,3 +178,27 @@ variable "common_remove_cdrom" {
   type    = bool
   default = true
 }
+
+// vSphere Guest OS Customization Settings
+variable "vm_guest_os_customization" {
+  type    = bool
+  default = true
+  description = "Enable vSphere Guest OS Customization"
+}
+
+variable "vm_guest_os_customization_spec" {
+  type = object({
+    identity = object({
+      linux_prep = object({
+        host_name = string
+        domain    = string
+      })
+    })
+    global_ip_settings = object({
+      dns_suffix_list = list(string)
+      dns_server_list = list(string)
+    })
+  })
+  default = null
+  description = "Guest OS Customization specification"
+}
