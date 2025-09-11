@@ -3,7 +3,7 @@ services:
     image: vikunja/vikunja
     container_name: todo
     environment:
-      VIKUNJA_SERVICE_PUBLICURL: ${app_domain}
+      VIKUNJA_SERVICE_PUBLICURL: https://${app_domain}
       VIKUNJA_DATABASE_HOST: db
       VIKUNJA_DATABASE_PASSWORD: ${mysql_password}
       VIKUNJA_DATABASE_TYPE: mysql
