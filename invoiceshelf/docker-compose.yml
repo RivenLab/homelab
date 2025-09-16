@@ -6,7 +6,7 @@ services:
     #ports:
     #  - "8090:8080"
     volumes:
-      - ${app_data_path}/app:/var/www/html/storage
+      - invoiceshelf_storage:/var/www/html/storage
     environment:
       - APP_NAME=InvoiceShelf
       - APP_ENV=production
@@ -38,3 +38,6 @@ services:
 networks:
  proxy:
    external: true
+
+volumes:
+  invoiceshelf_storage:
