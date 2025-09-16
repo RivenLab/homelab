@@ -1,0 +1,40 @@
+---
+services:
+  webapp:
+    image: invoiceshelf/invoiceshelf:nightly
+    container_name: invoiceshelf
+    #ports:
+    #  - "8090:8080"
+    volumes:
+      - invoiceshelf_storage:/var/www/html/storage
+    environment:
+      - APP_NAME=InvoiceShelf
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=https://${app_domain}
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/var/www/html/storage/app/database.sqlite
+      - CACHE_STORE=file
+      - SESSION_DRIVER=file
+      - SESSION_LIFETIME=240
+      - SESSION_DOMAIN=localhost
+      - SANCTUM_STATEFUL_DOMAINS=localhost:8090
+      #- MAIL_DRIVER=smtp
+      #- MAIL_HOST=smtp.mailtrap.io
+      #- MAIL_PORT=2525
+      #- MAIL_USERNAME=null
+      #- MAIL_PASSWORD=null
+      #- MAIL_PASSWORD_FILE=<filename>
+      #- MAIL_ENCRYPTION=null
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.crm.entrypoints=https-internal
+      - traefik.http.routers.crm.rule=Host(`${app_domain}`)
+      - traefik.http.services.crm.loadbalancer.server.port=8080
+
+networks:
+ proxy:
+   external: true
