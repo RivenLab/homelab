@@ -17,8 +17,8 @@ services:
       - CACHE_STORE=file
       - SESSION_DRIVER=file
       - SESSION_LIFETIME=240
-      - SESSION_DOMAIN=localhost
-      - SANCTUM_STATEFUL_DOMAINS=localhost:8090
+      - SESSION_DOMAIN=${app_domain}
+      - SANCTUM_STATEFUL_DOMAINS=${app_domain}
       #- MAIL_DRIVER=smtp
       #- MAIL_HOST=smtp.mailtrap.io
       #- MAIL_PORT=2525
