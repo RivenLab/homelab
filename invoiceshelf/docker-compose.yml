@@ -1,7 +1,7 @@
 ---
 services:
   webapp:
-    image: invoiceshelf/invoiceshelf:latest
+    image: invoiceshelf/invoiceshelf:nightly
     container_name: invoiceshelf
     #ports:
     #  - "8090:8080"
