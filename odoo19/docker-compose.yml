@@ -2,6 +2,7 @@
 services:
   app:
     image: odoo:19
+    container_name: odoo19
     depends_on:
       - db
     restart: always
@@ -26,6 +27,7 @@ services:
       - traefik.http.services.it-tools.loadbalancer.server.port=8069
   db:
     image: postgres:17
+    container_name: odoo19_db
     environment:
       - POSTGRES_DB=odoo
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgresql_password
