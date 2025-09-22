@@ -29,7 +29,7 @@ services:
     image: postgres:17
     container_name: odoo19_db
     environment:
-      - POSTGRES_DB=odoo
+      - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgresql_password
       - POSTGRES_USER=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
