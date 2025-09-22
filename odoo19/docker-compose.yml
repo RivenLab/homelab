@@ -47,5 +47,7 @@ secrets:
     file: ${app_data_path}/odoo_pg_pass
 
 networks:
- proxy:
-   external: true
+  internal:
+    external: true
+  proxy:
+    external: true
