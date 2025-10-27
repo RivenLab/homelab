@@ -1,0 +1,27 @@
+---
+services:
+  app:
+    image: jgraph/drawio
+    container_name: drawio
+    restart: always
+    #ports:
+      # - 8080:8080
+      # - 8443:8443
+    environment:
+      - PUBLIC_DNS: ${app_domain}
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.drawio.entrypoints=https-internal
+      - traefik.http.routers.drawio.rule=Host(`${app_domain}`)
+      - traefik.http.services.drawio.loadbalancer.server.port=8069
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://127.0.0.1:8080 || exit 1"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+networks:
+  proxy:
+    external: true
