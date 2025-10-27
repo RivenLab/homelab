@@ -22,9 +22,9 @@ services:
       - proxy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.it-tools.entrypoints=https-internal
-      - traefik.http.routers.it-tools.rule=Host(`${app_domain}`)
-      - traefik.http.services.it-tools.loadbalancer.server.port=8069
+      - traefik.http.routers.odoo19.entrypoints=https-internal
+      - traefik.http.routers.odoo19.rule=Host(`${app_domain}`)
+      - traefik.http.services.odoo19.loadbalancer.server.port=8069
   db:
     image: postgres:17
     container_name: odoo19_db
