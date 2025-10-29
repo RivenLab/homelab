@@ -1,0 +1,50 @@
+---
+services:
+  xwiki:
+    image: xwiki:17.9.0-mariadb-tomcat
+    container_name: xwiki
+    restart: unless-stopped
+    # ports:
+    #   - 8080:8080
+    networks:
+      - proxy
+      - internal
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_HOST=xwiki-db
+    volumes:
+      - ${app_data_path}/xwiki-data:/usr/local/xwiki
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.xwiki.entrypoints=https-internal
+      - traefik.http.routers.xwiki.rule=Host(`${app_domain}`)
+      - traefik.http.services.xwiki.loadbalancer.server.port=8080
+    depends_on:
+      - db
+
+  db:
+    image: "mariadb:12"
+    container_name: xwiki-db
+    restart: unless-stopped
+    volumes:
+      - ${app_data_path}/mariadb-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+    command:
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_bin"
+      - "--explicit-defaults-for-timestamp=1"
+    networks:
+      - internal
+
+networks:
+  proxy:
+    external: true
+  internal:
+    external: false
