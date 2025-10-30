@@ -1,0 +1,76 @@
+version: '3.5'
+
+services:
+  xwiki:
+    image: xwiki:17.9.0-mariadb-tomcat
+    networks:
+      - web
+      - xwiki_network
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_HOST=xwiki-db
+    volumes:
+      - xwiki_data:/usr/local/xwiki
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.xwiki.rule=Host(`${app_domain}`)
+        - traefik.http.services.xwiki.loadbalancer.server.port=8080
+        - traefik.docker.network=web
+    depends_on:
+      - db
+
+  xwiki-db:
+    image: "mariadb:12"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+    command:
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_bin"
+      - "--explicit-defaults-for-timestamp=1"
+    networks:
+      - xwiki_network
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+networks:
+  web:
+    external: true
+    name: web
+  xwiki_network:
+    driver: overlay
+    attachable: true
+    name: xwiki_network
+
+
+volumes:
+  xwiki_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${app_data_path}/xwiki_data
+
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${app_data_path}/mariadb_data
+
