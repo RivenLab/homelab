@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7.2-alpine
+    networks:
+      - docmost_network
+    volumes:
+      - redis_data:/data
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${db_name}
+      POSTGRES_USER: ${db_user}
+      POSTGRES_PASSWORD: ${db_password}
+    networks:
+      - docmost_network
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+
+  docmost:
+    image: docmost/docmost:latest
+    environment:
+      APP_URL: http://${app_domain}
+      APP_SECRET: ${app_secret}
+      DATABASE_URL: postgresql://${db_user}:${db_password}@db:5432/${db_name}?schema=public
+      REDIS_URL: redis://redis:6379
+    networks:
+      - web
+      - docmost_network
+    volumes:
+      - docmost_data:/app/data/storage
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.docmost.rule=Host(`${app_domain}`)
+        - traefik.http.services.docmost.loadbalancer.server.port=3000
+        - traefik.docker.network=web
+
+networks:
+  web:
+    external: true
+  docmost_network:
+    driver: overlay
+
+volumes:
+  docmost_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${app_data_path}/docmost_data
+
+  db_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${app_data_path}/db_data
+
+  redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${app_data_path}/redis_data
